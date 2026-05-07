@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SE-APG 鍋爐標準操作程序 ‧ SOP Portal</title>
+<style>
+  :root {
+    --industrial-blue: #0F2A47;
+    --industrial-blue-light: #1c3d63;
+    --industrial-blue-deep: #0a1d34;
+    --warning-red: #C8102E;
+    --warning-yellow: #F6BE00;
+    --safe-green: #00875A;
+    --paper: #FAF7F0;
+    --paper-deep: #f2eddb;
+    --paper-line: #DEDED2;
+    --ink: #1a2332;
+    --ink-soft: #2C3338;
+    --steel: #5d6068;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'PMingLiU', '新細明體', 'Noto Serif TC', 'Yu Mincho', 'YuMincho', serif;
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  /* === 上方標題列 === */
+  .topbar {
+    height: 56px;
+    background: var(--industrial-blue);
+    color: var(--paper);
+    display: flex;
+    align-items: stretch;
+    border-bottom: 3px solid var(--warning-red);
+    position: relative;
+    z-index: 100;
+  }
+
+  .brand {
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--warning-red);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    transform: skewX(-8deg);
+  }
+
+  .brand-mark span { display: inline-block; transform: skewX(8deg); }
+
+  .brand-text {
+    line-height: 1.2;
+  }
+
+  .brand-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .brand-name-en {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.12em;
+    margin-top: 1px;
+  }
+
+  .topbar-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 24px;
+  }
+
+  .topbar-title-zh {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .topbar-title-en {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.16em;
+    margin-top: 2px;
+    text-transform: uppercase;
+  }
+
+  /* === 語言切換 === */
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    gap: 4px;
+    border-left: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .lang-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.16em;
+    margin-right: 10px;
+    text-transform: uppercase;
+  }
+
+  .lang-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.7);
+    padding: 7px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+  }
+
+  .lang-btn:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: white;
+  }
+
+  .lang-btn.active {
+    background: var(--paper);
+    color: var(--industrial-blue);
+    border-color: var(--paper);
+  }
+
+  .lang-btn.active::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border: 1px solid rgba(15, 42, 71, 0.2);
+    pointer-events: none;
+  }
+
+  /* === 主畫面 === */
+  .main {
+    display: flex;
+    height: calc(100vh - 56px);
+  }
+
+  /* === 左側導覽 === */
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--paper-deep);
+    border-right: 1px solid var(--ink);
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .sidebar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size: 8mm 8mm;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .sidebar > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .sidebar-header {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .sidebar-title {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-soft);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-subtitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--industrial-blue);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+
+  .nav-item {
+    margin: 4px 12px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 12px 14px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+  }
+
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: transparent;
+    transition: background 0.18s ease;
+  }
+
+  .nav-link:hover {
+    background: white;
+    transform: translateX(2px);
+  }
+
+  .nav-link:hover::before {
+    background: var(--warning-yellow);
+  }
+
+  .nav-link.active {
+    background: var(--industrial-blue);
+    color: var(--paper);
+    border-color: var(--industrial-blue-deep);
+  }
+
+  .nav-link.active::before {
+    background: var(--warning-red);
+  }
+
+  .nav-link.active .nav-meta {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .nav-link.active .nav-tag {
+    background: var(--warning-red);
+    color: white;
+    border-color: var(--warning-red);
+  }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .nav-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--warning-red);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-link.active .nav-code {
+    color: var(--warning-yellow);
+  }
+
+  .nav-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    padding: 1px 6px;
+    background: var(--paper-deep);
+    border: 1px solid var(--ink);
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  .nav-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+
+  .nav-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--steel);
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  /* === 側邊欄底部資訊 === */
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--ink);
+    background: var(--paper);
+    font-size: 10px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .sidebar-footer-label {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--steel);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 8px;
+    margin-bottom: 2px;
+  }
+
+  /* === 內容顯示區 === */
+  .content {
+    flex: 1;
+    background: var(--steel);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 工具列：印刷/下載 */
+  .toolbar {
+    height: 44px;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    padding: 0 16px 0 20px;
+    gap: 12px;
+    border-bottom: 1px solid var(--industrial-blue-deep);
+  }
+
+  .toolbar-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .toolbar-info-current {
+    color: var(--paper);
+    font-weight: 700;
+  }
+
+  .toolbar-info-sep {
+    color: rgba(255,255,255,0.25);
+  }
+
+  .toolbar-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.85);
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .toolbar-btn:hover {
+    background: var(--warning-red);
+    border-color: var(--warning-red);
+    color: white;
+  }
+
+  .toolbar-btn.primary {
+    background: var(--warning-red);
+    border-color: var(--warning-red);
+    color: white;
+  }
+
+  .toolbar-btn.primary:hover {
+    background: var(--ink);
+    border-color: var(--paper);
+  }
+
+  /* iframe 容器 */
+  .frame-wrap {
+    height: calc(100% - 44px);
+    background: var(--steel);
+    overflow: auto;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .frame-wrap iframe {
+    width: 100%;
+    max-width: 1400px;
+    min-height: 100%;
+    border: none;
+    background: white;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  /* 歡迎畫面 */
+  .welcome {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--paper);
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size: 8mm 8mm;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .welcome::before {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    border: 1px solid var(--ink);
+    pointer-events: none;
+  }
+
+  .welcome::after {
+    content: "";
+    position: absolute;
+    inset: 36px;
+    border: 0.5px solid var(--ink);
+    pointer-events: none;
+  }
+
+  .welcome-mark {
+    width: 80px;
+    height: 80px;
+    background: var(--industrial-blue);
+    color: var(--warning-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    margin-bottom: 28px;
+    transform: skewX(-6deg);
+    position: relative;
+  }
+
+  .welcome-mark span { display: inline-block; transform: skewX(6deg); }
+
+  .welcome-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--industrial-blue);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .welcome-title-en {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--steel);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .welcome-stamp {
+    border: 2px solid var(--warning-red);
+    color: var(--warning-red);
+    padding: 8px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    transform: rotate(-3deg);
+    margin-bottom: 32px;
+  }
+
+  .welcome-instructions {
+    background: white;
+    border: 1px solid var(--ink);
+    padding: 20px 28px;
+    max-width: 480px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+
+  .welcome-instructions h3 {
+    font-size: 13px;
+    color: var(--industrial-blue);
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--paper-deep);
+  }
+
+  .welcome-instructions ol {
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+
+  .welcome-instructions ol em {
+    color: var(--warning-red);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .welcome-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--steel);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* === 響應式（mobile）=== */
+  @media (max-width: 768px) {
+    html, body { overflow: auto; }
+    .main { flex-direction: column; height: auto; }
+    .sidebar { width: 100%; height: auto; max-height: 300px; }
+    .frame-wrap { padding: 12px 8px; }
+    .topbar-title { padding: 0 12px; }
+    .topbar-title-zh { font-size: 13px; }
+    .topbar-title-en { display: none; }
+    .lang-label { display: none; }
+    .brand { padding: 0 12px; }
+    .brand-text { display: none; }
+    .welcome-title { font-size: 26px; }
+  }
+
+  /* 滾動條樣式 */
+  .sidebar::-webkit-scrollbar,
+  .frame-wrap::-webkit-scrollbar {
+    width: 8px;
+  }
+  .sidebar::-webkit-scrollbar-track,
+  .frame-wrap::-webkit-scrollbar-track {
+    background: var(--paper-deep);
+  }
+  .sidebar::-webkit-scrollbar-thumb,
+  .frame-wrap::-webkit-scrollbar-thumb {
+    background: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<!-- 上方標題列 -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark"><span>QP</span></div>
+    <div class="brand-text">
+      <div class="brand-name" data-i18n="brand-name">國精化學</div>
+      <div class="brand-name-en">QUALIPOLY CHEMICAL CORP.</div>
+    </div>
+  </div>
+
+  <div class="topbar-title">
+    <div class="topbar-title-zh" data-i18n="portal-title">SE-APG 系列鍋爐 ‧ 標準操作程序</div>
+    <div class="topbar-title-en">SE-APG BOILER STANDARD OPERATING PROCEDURES</div>
+  </div>
+
+  <div class="lang-switcher">
+    <span class="lang-label" data-i18n="lang-label">LANGUAGE</span>
+    <button class="lang-btn active" data-lang="zh">中文</button>
+    <button class="lang-btn" data-lang="jp">日本語</button>
+  </div>
+</header>
+
+<!-- 主畫面 -->
+<div class="main">
+
+  <!-- 左側導覽 -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title" data-i18n="document-list">DOCUMENT LIST</div>
+      <div class="sidebar-subtitle" data-i18n="document-list-zh">SOP 文件清單</div>
+    </div>
+
+    <ul class="nav-list" id="navList">
+      <li class="nav-item">
+        <a class="nav-link" data-doc="SOP-01a-startup">
+          <div class="nav-row">
+            <span class="nav-code">SOP-01a</span>
+            <span class="nav-tag" data-i18n="tag-poster">POSTER</span>
+          </div>
+          <div class="nav-title" data-i18n="doc-01a">開機與啟動運轉</div>
+          <div class="nav-meta">A3 ‧ 1P ‧ START-UP</div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-doc="SOP-01b-shutdown">
+          <div class="nav-row">
+            <span class="nav-code">SOP-01b</span>
+            <span class="nav-tag" data-i18n="tag-poster">POSTER</span>
+          </div>
+          <div class="nav-title" data-i18n="doc-01b">巡檢與停機作業</div>
+          <div class="nav-meta">A3 ‧ 1P ‧ OPERATION & SHUTDOWN</div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-doc="SOP-02-full-blowdown">
+          <div class="nav-row">
+            <span class="nav-code">SOP-02</span>
+            <span class="nav-tag" data-i18n="tag-poster">POSTER</span>
+          </div>
+          <div class="nav-title" data-i18n="doc-02">全排放作業</div>
+          <div class="nav-meta">A3 ‧ 1P ‧ FULL BLOWDOWN</div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-doc="SOP-03-fault-quickref">
+          <div class="nav-row">
+            <span class="nav-code">SOP-03</span>
+            <span class="nav-tag" data-i18n="tag-card">CARD</span>
+          </div>
+          <div class="nav-title" data-i18n="doc-03">異常顯示速查卡</div>
+          <div class="nav-meta">A4 ‧ 2P ‧ QUICK REF</div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-doc="SOP-04-panel-lights">
+          <div class="nav-row">
+            <span class="nav-code">SOP-04</span>
+            <span class="nav-tag" data-i18n="tag-poster">POSTER</span>
+          </div>
+          <div class="nav-title" data-i18n="doc-04">操作面板燈號圖</div>
+          <div class="nav-meta">A3 ‧ 1P ‧ PANEL LIGHTS</div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-label">REVISION</div>
+      <div>REV. A ‧ 2026</div>
+    </div>
+  </aside>
+
+  <!-- 內容顯示區 -->
+  <main class="content">
+    <div class="toolbar">
+      <div class="toolbar-info">
+        <span data-i18n="toolbar-current">目前文件</span>
+        <span class="toolbar-info-sep">/</span>
+        <span class="toolbar-info-current" id="currentDocLabel" data-i18n="welcome-pick">— 請從左側選擇 —</span>
+      </div>
+      <button class="toolbar-btn" id="printBtn" disabled style="opacity:0.4;cursor:not-allowed;">
+        <span data-i18n="btn-print">列印 / 存 PDF</span>
+      </button>
+      <a class="toolbar-btn primary" id="openBtn" target="_blank" style="display:none;">
+        <span data-i18n="btn-newtab">新分頁開啟</span>
+      </a>
+    </div>
+
+    <div class="frame-wrap" id="frameWrap">
+      <div class="welcome">
+        <div class="welcome-mark"><span>SOP</span></div>
+        <div class="welcome-title" data-i18n="welcome-title">標準操作程序</div>
+        <div class="welcome-title-en">STANDARD OPERATING PROCEDURES</div>
+        <div class="welcome-stamp" data-i18n="welcome-stamp">CONFIDENTIAL ‧ INTERNAL USE ONLY</div>
+        <div class="welcome-instructions">
+          <h3 data-i18n="welcome-howto">如何使用</h3>
+          <ol>
+            <li data-i18n="welcome-step-1">從上方選擇<em>語言</em>（中文 / 日本語）</li>
+            <li data-i18n="welcome-step-2">從左側選擇 <em>SOP 文件</em></li>
+            <li data-i18n="welcome-step-3">右上角可<em>列印</em>或在新分頁開啟</li>
+          </ol>
+        </div>
+        <div class="welcome-meta" data-i18n="welcome-applicable">SE-2000 / SE-2500 / SE-3000 APG ‧ 適用機種</div>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+  // === i18n ===
+  const I18N = {
+    zh: {
+      'brand-name': '國精化學',
+      'portal-title': 'SE-APG 系列鍋爐 ‧ 標準操作程序',
+      'lang-label': 'LANGUAGE',
+      'document-list': 'DOCUMENT LIST',
+      'document-list-zh': 'SOP 文件清單',
+      'tag-poster': 'POSTER',
+      'tag-card': 'CARD',
+      'tag-manual': 'MANUAL',
+      'doc-01a': '開機與啟動運轉',
+      'doc-01b': '巡檢與停機作業',
+      'doc-02': '全排放作業',
+      'doc-03': '異常顯示速查卡',
+      'doc-04': '操作面板燈號圖',
+      'toolbar-current': '目前文件',
+      'btn-print': '列印 / 存 PDF',
+      'btn-newtab': '新分頁開啟',
+      'welcome-title': '標準操作程序',
+      'welcome-pick': '— 請從左側選擇 —',
+      'welcome-stamp': 'CONFIDENTIAL ‧ INTERNAL USE ONLY',
+      'welcome-howto': '如何使用',
+      'welcome-step-1': '從上方選擇<em>語言</em>（中文 / 日本語）',
+      'welcome-step-2': '從左側選擇 <em>SOP 文件</em>',
+      'welcome-step-3': '右上角可<em>列印</em>或在新分頁開啟',
+      'welcome-applicable': 'SE-2000 / SE-2500 / SE-3000 APG ‧ 適用機種',
+    },
+    jp: {
+      'brand-name': '国精化学',
+      'portal-title': 'SE-APG 系列ボイラー ‧ 標準操作手順',
+      'lang-label': 'LANGUAGE',
+      'document-list': 'DOCUMENT LIST',
+      'document-list-zh': 'SOP 文書一覧',
+      'tag-poster': 'POSTER',
+      'tag-card': 'CARD',
+      'tag-manual': 'MANUAL',
+      'doc-01a': '起動と運転開始',
+      'doc-01b': '巡視と停止作業',
+      'doc-02': '全ブロー作業',
+      'doc-03': '異常表示クイックカード',
+      'doc-04': '操作パネルランプ対照図',
+      'toolbar-current': '現在の文書',
+      'btn-print': '印刷 / PDF 保存',
+      'btn-newtab': '新規タブで開く',
+      'welcome-title': '標準操作手順',
+      'welcome-pick': '— 左側から選択 —',
+      'welcome-stamp': 'CONFIDENTIAL ‧ INTERNAL USE ONLY',
+      'welcome-howto': 'ご利用方法',
+      'welcome-step-1': '上から<em>言語</em>を選択（中文 / 日本語）',
+      'welcome-step-2': '左から <em>SOP 文書</em> を選択',
+      'welcome-step-3': '右上で<em>印刷</em>または新規タブで開く',
+      'welcome-applicable': 'SE-2000 / SE-2500 / SE-3000 APG ‧ 適用機種',
+    }
+  };
+
+  let currentLang = 'zh';
+  let currentDoc = null;
+
+  // 從 URL hash 還原狀態（例如 #jp/SOP-02-full-blowdown）
+  function parseHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return { lang: 'zh', doc: null };
+    const parts = hash.split('/');
+    const lang = (parts[0] === 'jp') ? 'jp' : 'zh';
+    const doc = parts[1] || null;
+    return { lang, doc };
+  }
+
+  function updateHash() {
+    const docPart = currentDoc ? '/' + currentDoc : '';
+    window.location.hash = currentLang + docPart;
+  }
+
+  // 套用 i18n
+  function applyI18n(lang) {
+    document.documentElement.lang = (lang === 'jp') ? 'ja' : 'zh-TW';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (I18N[lang] && I18N[lang][key]) {
+        el.innerHTML = I18N[lang][key];
+      }
+    });
+  }
+
+  // 切換語言
+  function switchLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+    applyI18n(lang);
+    if (currentDoc) {
+      loadDoc(currentDoc);
+    }
+    updateHash();
+  }
+
+  // 載入文件到 iframe
+  function loadDoc(docId) {
+    currentDoc = docId;
+    document.querySelectorAll('.nav-link').forEach(a => {
+      a.classList.toggle('active', a.dataset.doc === docId);
+    });
+
+    const url = `${currentLang}/${docId}.html`;
+    const wrap = document.getElementById('frameWrap');
+    wrap.innerHTML = `<iframe src="${url}" title="${docId}"></iframe>`;
+
+    // 更新工具列
+    const navLink = document.querySelector(`.nav-link[data-doc="${docId}"]`);
+    const docLabel = navLink ? navLink.querySelector('.nav-title').textContent : docId;
+    const docCode = navLink ? navLink.querySelector('.nav-code').textContent : '';
+    document.getElementById('currentDocLabel').textContent = `${docCode} ‧ ${docLabel}`;
+
+    // 啟用工具列按鈕
+    const printBtn = document.getElementById('printBtn');
+    const openBtn = document.getElementById('openBtn');
+    printBtn.disabled = false;
+    printBtn.style.opacity = '';
+    printBtn.style.cursor = '';
+    printBtn.onclick = () => {
+      const iframe = document.querySelector('#frameWrap iframe');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }
+    };
+    openBtn.style.display = 'inline-flex';
+    openBtn.href = url;
+
+    updateHash();
+  }
+
+  // 綁定事件
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchLang(btn.dataset.lang));
+  });
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      loadDoc(link.dataset.doc);
+    });
+  });
+
+  // 初始化
+  const initial = parseHash();
+  switchLang(initial.lang);
+  if (initial.doc) {
+    loadDoc(initial.doc);
+  }
+  // hash 變動同步
+  window.addEventListener('hashchange', () => {
+    const { lang, doc } = parseHash();
+    if (lang !== currentLang) switchLang(lang);
+    if (doc && doc !== currentDoc) loadDoc(doc);
+  });
+</script>
+
+</body>
+</html>

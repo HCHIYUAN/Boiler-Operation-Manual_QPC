@@ -1,0 +1,33 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+.cursor/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Vercel
+.vercel/
+
+# Node (若日後加套件)
+node_modules/
+package-lock.json
+
+# Temporary
+*.tmp
+*.bak
+*.backup
+
+# Build outputs（純靜態目前不會有，預留）
+dist/
+build/
+out/

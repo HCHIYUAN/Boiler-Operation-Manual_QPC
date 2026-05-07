@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SOP-01 每日操作 SOP マニュアル版｜SE-APG 系列ボイラー</title>
+<style>
+:root {
+  --ink: #1a2332;
+  --ink-soft: #2C3338;
+  --ink-fade: #6b6f7a;
+  --paper: #FAF7F0;
+  --paper-deep: #F2EDDB;
+  --paper-line: #E8E3D5;
+  --industrial-blue: #0F2A47;
+  --industrial-blue-soft: #1E4A7A;
+  --industrial-blue-bg: #E8EEF5;
+  --warning-red: #C8102E;
+  --warning-red-bg: #FFF4F5;
+  --caution-yellow: #F6BE00;
+  --caution-yellow-soft: #FFF6D6;
+  --safe-green: #00875A;
+  --safe-green-soft: #E3F5EE;
+  --check-blue: #1E88E5;
+  --check-blue-bg: #E3F2FD;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068; padding: 30px 20px; color: var(--ink); }
+
+/* === A4 直式紙枚 === */
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--paper);
+  margin: 0 auto 20px;
+  padding: 14mm 14mm 14mm;
+  position: relative;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+  background-image: linear-gradient(var(--paper-line) 1px, transparent 1px), linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+  background-size: 8mm 8mm;
+}
+.page::before { content: ""; position: absolute; inset: 6mm; border: 0.8px solid var(--ink); pointer-events: none; z-index: 0; }
+.page > * { position: relative; z-index: 1; }
+
+/* === 計通 Header === */
+.page-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  padding-bottom: 3mm;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 5mm;
+}
+.page-header-left .doc-no {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: white;
+  background: var(--warning-red);
+  padding: 1mm 3mm;
+  display: inline-block;
+  margin-bottom: 1.5mm;
+}
+.page-header-left .page-title {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 18pt;
+  font-weight: 900;
+  line-height: 1.1;
+}
+.page-header-left .page-subtitle {
+  font-size: 9pt;
+  color: var(--ink-fade);
+  margin-top: 1mm;
+}
+.page-header-right {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  color: var(--ink-fade);
+  line-height: 1.5;
+}
+.page-header-right .company {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 9pt;
+  font-weight: 900;
+  color: var(--industrial-blue);
+}
+
+/* === Footer === */
+.page-footer {
+  position: absolute;
+  bottom: 8mm;
+  left: 14mm;
+  right: 14mm;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7pt;
+  color: var(--ink-fade);
+  padding-top: 2mm;
+  border-top: 0.5px solid var(--ink-fade);
+}
+.page-footer .center { text-align: center; font-family: 'PMingLiU', '新細明體', serif; font-size: 8pt; color: var(--ink); }
+.page-footer .right { text-align: right; }
+
+/* === 表紙頁 === */
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 240mm;
+  text-align: center;
+  position: relative;
+}
+.cover-stamp {
+  border: 2px solid var(--warning-red);
+  color: var(--warning-red);
+  padding: 2mm 6mm;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 900;
+  font-size: 11pt;
+  letter-spacing: 0.2em;
+  margin-bottom: 12mm;
+  transform: rotate(-2deg);
+}
+.cover-doc-no {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11pt;
+  letter-spacing: 0.2em;
+  color: var(--ink-fade);
+  margin-bottom: 4mm;
+}
+.cover-title-zh {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 38pt;
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 4mm;
+}
+.cover-title-en {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11pt;
+  letter-spacing: 0.25em;
+  color: var(--ink-fade);
+  margin-bottom: 18mm;
+}
+.cover-subtitle {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 14pt;
+  margin-bottom: 28mm;
+  color: var(--ink-soft);
+}
+.cover-meta {
+  border: 1.5px solid var(--ink);
+  padding: 5mm 12mm;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5pt;
+  line-height: 2.2;
+  color: var(--ink);
+  text-align: left;
+  background: white;
+}
+.cover-meta strong { font-family: 'PMingLiU', '新細明體', serif; font-weight: 900; color: var(--industrial-blue); }
+.cover-company {
+  margin-top: 18mm;
+  padding-top: 5mm;
+  border-top: 2px solid var(--ink);
+  width: 100mm;
+}
+.cover-company-name {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 16pt;
+  font-weight: 900;
+  color: var(--industrial-blue);
+  letter-spacing: 0.05em;
+}
+.cover-company-en {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.2em;
+  color: var(--ink-fade);
+  margin-top: 1mm;
+}
+
+/* === 目回頁 === */
+.toc-title {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 26pt;
+  font-weight: 900;
+  margin-bottom: 2mm;
+}
+.toc-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9pt;
+  letter-spacing: 0.2em;
+  color: var(--ink-fade);
+  margin-bottom: 8mm;
+  padding-bottom: 4mm;
+  border-bottom: 2px solid var(--ink);
+}
+.toc-list {
+  list-style: none;
+  padding: 0;
+}
+.toc-section {
+  margin-bottom: 6mm;
+}
+.toc-section-title {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 13pt;
+  font-weight: 900;
+  margin-bottom: 3mm;
+  color: var(--industrial-blue);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+}
+.toc-section-num {
+  background: var(--industrial-blue);
+  color: white;
+  width: 7mm;
+  height: 7mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 900;
+  font-size: 11pt;
+}
+.toc-section-num.green { background: var(--safe-green); }
+.toc-section-num.yellow { background: var(--caution-yellow); color: var(--ink); }
+.toc-section-num.red { background: var(--warning-red); }
+.toc-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 3mm;
+  padding: 1.5mm 0;
+  font-size: 10pt;
+  border-bottom: 1px dotted var(--paper-line);
+  align-items: baseline;
+}
+.toc-item-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--ink-fade);
+  font-size: 9pt;
+  min-width: 14mm;
+}
+.toc-item-name { color: var(--ink); }
+.toc-item-page {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  color: var(--ink-fade);
+}
+
+/* === 內容頁 === */
+.section-banner {
+  display: grid;
+  grid-template-columns: 14mm 1fr auto;
+  gap: 4mm;
+  align-items: center;
+  margin-bottom: 5mm;
+  padding-bottom: 3mm;
+  border-bottom: 2px solid var(--ink);
+}
+.section-banner-num {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--ink);
+  color: white;
+  width: 14mm;
+  height: 14mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18pt;
+  font-weight: 900;
+}
+.section-banner-num.green { background: var(--safe-green); }
+.section-banner-num.yellow { background: var(--caution-yellow); color: var(--ink); }
+.section-banner-num.red { background: var(--warning-red); }
+.section-banner-title-zh {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 18pt;
+  font-weight: 900;
+  line-height: 1.1;
+}
+.section-banner-title-en {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.2em;
+  color: var(--ink-fade);
+  text-transform: uppercase;
+  margin-top: 0.5mm;
+}
+.section-banner-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  background: var(--paper-deep);
+  padding: 1.5mm 3mm;
+  border: 1px solid var(--ink);
+  font-weight: 700;
+}
+
+/* 步驟卡片（マニュアル版：含勾選框） */
+.manual-step {
+  display: grid;
+  grid-template-columns: 50mm 1fr;
+  background: white;
+  border: 1.5px solid var(--ink);
+  margin-bottom: 4mm;
+  position: relative;
+  overflow: hidden;
+  break-inside: avoid;
+}
+.manual-step.danger { border-color: var(--warning-red); border-width: 2px; }
+.manual-step.caution { border-color: var(--caution-yellow); border-width: 2px; }
+
+.manual-step-illust {
+  background: var(--paper-deep);
+  padding: 3mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1.5px solid var(--ink);
+  position: relative;
+}
+.manual-step-illust svg {
+  width: 100%;
+  max-height: 42mm;
+}
+
+.manual-step-content {
+  padding: 4mm 5mm;
+  position: relative;
+}
+
+.manual-step-num-row {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+  margin-bottom: 2mm;
+}
+.manual-step-num {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--industrial-blue);
+  color: white;
+  min-width: 11mm;
+  height: 9mm;
+  padding: 0 2mm;
+  font-size: 12pt;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.manual-step.danger .manual-step-num { background: var(--warning-red); }
+.manual-step.caution .manual-step-num { background: var(--caution-yellow); color: var(--ink); }
+.manual-step.go .manual-step-num { background: var(--safe-green); }
+
+.manual-step-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--ink-fade);
+  text-transform: uppercase;
+}
+
+.manual-step-title {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 13pt;
+  font-weight: 900;
+  margin-bottom: 2mm;
+  line-height: 1.25;
+}
+
+.manual-step-desc {
+  font-size: 10pt;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 2.5mm;
+}
+.manual-step-desc strong {
+  background: var(--caution-yellow);
+  padding: 0 2px;
+  font-weight: 700;
+}
+.manual-step-desc em {
+  font-style: normal;
+  color: var(--warning-red);
+  font-weight: 700;
+}
+
+.manual-step-criteria {
+  margin-top: 2mm;
+  padding: 1.5mm 3mm;
+  background: var(--safe-green-soft);
+  border-left: 2.5px solid var(--safe-green);
+  font-size: 8.5pt;
+  color: var(--safe-green);
+  font-weight: 500;
+  line-height: 1.4;
+}
+.manual-step-criteria::before {
+  content: "✓ 判定基準：";
+  font-weight: 900;
+}
+
+/* 勾選框 */
+.checkbox-row {
+  margin-top: 3mm;
+  padding-top: 2mm;
+  border-top: 1px dashed var(--paper-line);
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+}
+.checkbox {
+  width: 5mm;
+  height: 5mm;
+  border: 2px solid var(--check-blue);
+  background: var(--check-blue-bg);
+  flex-shrink: 0;
+  display: inline-block;
+}
+.checkbox-label {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--check-blue);
+  letter-spacing: 0.05em;
+}
+.checkbox-label .small {
+  font-family: 'PMingLiU', '新細明體', sans-serif;
+  font-size: 8.5pt;
+  color: var(--ink-fade);
+  font-weight: 400;
+}
+
+/* 警告框 */
+.manual-warning {
+  background: var(--warning-red-bg);
+  border: 2px solid var(--warning-red);
+  padding: 3mm 4mm;
+  margin: 4mm 0;
+}
+.manual-warning-title {
+  font-family: 'PMingLiU', '新細明體', serif;
+  font-size: 11pt;
+  font-weight: 900;
+  color: var(--warning-red);
+  margin-bottom: 1.5mm;
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+}
+.manual-warning-body {
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+.manual-warning-body strong {
+  background: var(--warning-red);
+  color: white;
+  padding: 0 2px;
+}
+
+/* === 列印分頁 === */
+.page-break { page-break-after: always; }
+
+/* === @page 尺寸定義 === */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 強制保留所有背景と顏色 */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* 紙枚容器：強制固定 = 一頁，超過部分裁切（避免溢出空白頁） */
+  .page {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    min-height: 0 !important;
+    max-height: 297mm !important;
+    overflow: hidden !important;
+    page-break-after: always;
+    page-break-inside: avoid;
+    break-after: page;
+    break-inside: avoid;
+    box-sizing: border-box !important;
+  }
+
+  .page:last-of-type {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* 元素不分頁：步驟卡片、警告框、區段、流程圖 */
+  .step-card,
+  .manual-step,
+  .warning-box,
+  .warning-item,
+  .section,
+  .flow-summary,
+  .emergency-box,
+  .emergency-flow,
+  .lamp-card,
+  .lamp-flow,
+  .light-item,
+  .multi-machine-box,
+  .trigger-box,
+  .danger-banner,
+  .cheat-sheet,
+  .detail-section,
+  .lower-grid,
+  table,
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* 區段標題不要孤立在頁尾 */
+  .section-header,
+  .section-banner,
+  .section-title,
+  h1, h2, h3 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* === 列印密度緊縮（強制壓進一頁）=== */
+
+  /* 全域字級微調 */
+  body { font-size: 9pt; }
+
+  /* 內邊距縮減 */
+  .page {
+    padding: 12mm 12mm 10mm !important;
+  }
+
+  /* page-header 縮減 */
+  .page-header { padding-bottom: 2mm !important; margin-bottom: 3mm !important; }
+  .page-header-left .page-title { font-size: 16pt !important; }
+
+  /* section-banner 縮減 */
+  .section-banner {
+    margin-bottom: 3mm !important;
+    padding-bottom: 2mm !important;
+  }
+  .section-banner-num { width: 11mm !important; height: 11mm !important; font-size: 14pt !important; }
+  .section-banner-title-zh { font-size: 15pt !important; }
+
+  /* manual-step（最關鍵）卡片縮減 */
+  .manual-step { margin-bottom: 2.5mm !important; }
+  .manual-step-content { padding: 2.5mm 4mm !important; }
+  .manual-step-illust { padding: 2mm !important; }
+  .manual-step-illust svg { max-height: 36mm !important; }
+  .manual-step-num-row { margin-bottom: 1mm !important; }
+  .manual-step-title { font-size: 11pt !important; margin-bottom: 1mm !important; }
+  .manual-step-desc { font-size: 9pt !important; line-height: 1.4 !important; margin-bottom: 1.5mm !important; }
+  .manual-step-criteria { padding: 1mm 2mm !important; font-size: 8pt !important; margin-top: 1mm !important; }
+  .checkbox-row { margin-top: 1.5mm !important; padding-top: 1mm !important; gap: 2mm !important; }
+  .checkbox { width: 4mm !important; height: 4mm !important; }
+  .checkbox-label { font-size: 9pt !important; }
+
+  /* warning 縮減 */
+  .manual-warning { padding: 2mm 3mm !important; margin: 2mm 0 !important; }
+  .manual-warning-title { font-size: 10pt !important; margin-bottom: 1mm !important; }
+  .manual-warning-body { font-size: 9pt !important; line-height: 1.4 !important; }
+
+  /* footer 略縮 */
+  .page-footer { bottom: 6mm !important; font-size: 7pt !important; }
+
+  /* 目回頁專用 */
+  .toc-title { font-size: 22pt !important; margin-bottom: 1mm !important; }
+  .toc-subtitle { margin-bottom: 4mm !important; padding-bottom: 2mm !important; }
+  .toc-section { margin-bottom: 3mm !important; }
+  .toc-section-title { font-size: 12pt !important; margin-bottom: 1.5mm !important; }
+  .toc-item { padding: 1mm 0 !important; font-size: 9pt !important; }
+
+  /* 隱藏螢幕專用元素 */
+  .sample-note {
+    display: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============== 第 1 頁：表紙 ============== -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-stamp">CONFIDENTIAL ‧ INTERNAL USE ONLY</div>
+    <div class="cover-doc-no">SOP-01 ‧ マニュアル版 ‧ REV. A</div>
+    <div class="cover-title-zh">毎日起動・運転・停止<br>標準操作手順</div>
+    <div class="cover-title-en">DAILY START-UP, OPERATION & SHUTDOWN MANUAL</div>
+    <div class="cover-subtitle">SE-APG 系列小型貫流ガスボイラー</div>
+
+    <div class="cover-meta">
+      <strong>適用機種：</strong>SE-2000 / SE-2500 / SE-3000 APG<br>
+      <strong>発行日付：</strong>2026-XX-XX<br>
+      <strong>改訂版本：</strong>REV. A（初版）<br>
+      <strong>有効期限：</strong>回回定期見直しは発行日より 12 ヶ月<br>
+      <strong>主管承認：</strong>______________________
+    </div>
+
+    <div class="cover-company">
+      <div class="cover-company-name">国精化学股份有限公司</div>
+      <div class="cover-company-en">QUALIPOLY CHEMICAL CORP.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01</span>
+    <span class="center">表紙 ‧ COVER</span>
+    <span class="right">第 1 頁</span>
+  </div>
+</div>
+
+<!-- ============== 第 2 頁：目回 ============== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="doc-no">SOP-01 / REV. A</span>
+      <div class="page-title">目回</div>
+      <div class="page-subtitle">CONTENTS ‧ 文書ガイド</div>
+    </div>
+    <div class="page-header-right">
+      <div class="company">国精化学 ‧ QUALIPOLY</div>
+      <div>SE-2000/2500/3000APG</div>
+    </div>
+  </div>
+
+  <div class="toc-list">
+    <div class="toc-section">
+      <div class="toc-section-title">
+        <span class="toc-section-num green">A</span>
+        起動前点検
+      </div>
+      <div class="toc-item"><span class="toc-item-code">A1</span><span class="toc-item-name">ボイラー外観点検</span><span class="toc-item-page">P. 3</span></div>
+      <div class="toc-item"><span class="toc-item-code">A2</span><span class="toc-item-name">本体汚れ/変色点検</span><span class="toc-item-page">P. 3</span></div>
+      <div class="toc-item"><span class="toc-item-code">A3</span><span class="toc-item-name">接続部緩み点検</span><span class="toc-item-page">P. 4</span></div>
+      <div class="toc-item"><span class="toc-item-code">A4</span><span class="toc-item-name">給水タンク水量/出口弁開</span><span class="toc-item-page">P. 4</span></div>
+      <div class="toc-item"><span class="toc-item-code">A5</span><span class="toc-item-name">ガス元弁/漏れ点検</span><span class="toc-item-page">P. 5</span></div>
+      <div class="toc-item"><span class="toc-item-code">A6</span><span class="toc-item-name">薬剤量点検</span><span class="toc-item-page">P. 5</span></div>
+      <div class="toc-item"><span class="toc-item-code">A7</span><span class="toc-item-name">軟水検査（試薬）</span><span class="toc-item-page">P. 6</span></div>
+      <div class="toc-item"><span class="toc-item-code">A8</span><span class="toc-item-name">主蒸気弁閉確認</span><span class="toc-item-page">P. 6</span></div>
+      <div class="toc-item"><span class="toc-item-code">A9</span><span class="toc-item-name">ブロー弁/給気弁閉確認</span><span class="toc-item-page">P. 7</span></div>
+    </div>
+
+    <div class="toc-section">
+      <div class="toc-section-title">
+        <span class="toc-section-num">B</span>
+        起動運転
+      </div>
+      <div class="toc-item"><span class="toc-item-code">B1</span><span class="toc-item-name">按下運転スイッチ</span><span class="toc-item-page">P. 8</span></div>
+      <div class="toc-item"><span class="toc-item-code">B2</span><span class="toc-item-name">着火完了待ち</span><span class="toc-item-page">P. 8</span></div>
+      <div class="toc-item"><span class="toc-item-code">B3</span><span class="toc-item-name">主蒸気弁ゆっくり開【重要】</span><span class="toc-item-page">P. 9</span></div>
+      <div class="toc-item"><span class="toc-item-code">B4</span><span class="toc-item-name">圧力安定確認</span><span class="toc-item-page">P. 9</span></div>
+    </div>
+
+    <div class="toc-section">
+      <div class="toc-section-title">
+        <span class="toc-section-num yellow">C</span>
+        運転中巡視
+      </div>
+      <div class="toc-item"><span class="toc-item-code">C1-C6</span><span class="toc-item-name">6点巡視（音/圧力/ガス/軟水/ボール/薬剤）</span><span class="toc-item-page">P. 10</span></div>
+    </div>
+
+    <div class="toc-section">
+      <div class="toc-section-title">
+        <span class="toc-section-num red">D</span>
+        停止作業
+      </div>
+      <div class="toc-item"><span class="toc-item-code">D1</span><span class="toc-item-name">運転スイッチ押下停止</span><span class="toc-item-page">P. 11</span></div>
+      <div class="toc-item"><span class="toc-item-code">D2</span><span class="toc-item-name">後通風（自動）</span><span class="toc-item-page">P. 11</span></div>
+      <div class="toc-item"><span class="toc-item-code">D3</span><span class="toc-item-name">主蒸気弁閉</span><span class="toc-item-page">P. 12</span></div>
+      <div class="toc-item"><span class="toc-item-code">D4</span><span class="toc-item-name">關閉給水タンク / ガス元弁</span><span class="toc-item-page">P. 12</span></div>
+    </div>
+
+    <div class="toc-section">
+      <div class="toc-section-title">
+        <span class="toc-section-num red">E</span>
+        緊急時クイック対応
+      </div>
+      <div class="toc-item"><span class="toc-item-code">E1</span><span class="toc-item-name">緊急4ステップ手順</span><span class="toc-item-page">P. 13</span></div>
+      <div class="toc-item"><span class="toc-item-code">E2</span><span class="toc-item-name">緊急連絡先</span><span class="toc-item-page">P. 13</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top: 8mm; padding: 4mm 5mm; background: var(--check-blue-bg); border-left: 4px solid var(--check-blue); font-size: 9.5pt; line-height: 1.6;">
+    <strong style="color: var(--check-blue); font-family: 'PMingLiU', '新細明體', serif;">使用説明：</strong>
+    每個操作步驟下方均附有<span style="display: inline-block; width: 4mm; height: 4mm; border: 1.5px solid var(--check-blue); background: white; vertical-align: text-bottom; margin: 0 1mm;"></span>勾選框，作業完了後請打勾或簽姓名首字。
+    推奨搭配 SOP-01a/01b ポスター版枚貼於現場使用。
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01 ‧ 目回</span>
+    <span class="center">CONTENTS</span>
+    <span class="right">第 2 頁</span>
+  </div>
+</div>
+
+<!-- ============== 第 3 頁：A 區起動前点検 1/3 ============== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="doc-no">SOP-01 / REV. A</span>
+      <div class="page-title">A 區｜起動前点検</div>
+      <div class="page-subtitle">PRE-START INSPECTION ‧ 1 / 3</div>
+    </div>
+    <div class="page-header-right">
+      <div class="company">国精化学 ‧ QUALIPOLY</div>
+      <div>SE-2000/2500/3000APG</div>
+    </div>
+  </div>
+
+  <div class="section-banner">
+    <div class="section-banner-num green">A</div>
+    <div>
+      <div class="section-banner-title-zh">起動前点検</div>
+      <div class="section-banner-title-en">PRE-START INSPECTION</div>
+    </div>
+    <div class="section-banner-meta">毎起動前 ‧ 計9項目</div>
+  </div>
+
+  <!-- A1 ボイラー外観点検 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="22" y="10" width="56" height="80" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <rect x="22" y="10" width="56" height="10" fill="#0F2A47" stroke="#1a2332" stroke-width="1"/>
+        <rect x="38" y="28" width="24" height="20" fill="#1a2332"/>
+        <circle cx="50" cy="34" r="3" fill="#00875A"/>
+        <rect x="42" y="40" width="16" height="3" fill="#444"/>
+        <line x1="50" y1="50" x2="50" y2="90" stroke="#1a2332" stroke-width="0.5"/>
+        <circle cx="78" cy="60" r="11" fill="none" stroke="#C8102E" stroke-width="2"/>
+        <line x1="86" y1="68" x2="93" y2="76" stroke="#C8102E" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A1</div>
+        <span class="manual-step-tag">VISUAL CHECK</span>
+      </div>
+      <div class="manual-step-title">ボイラー外観点検</div>
+      <div class="manual-step-desc">ボイラー周辺機器を巡視、本体と管路。確認<strong>異常なし汚れ、変色、漏れ、緩み</strong>。注意主蒸気管・ガス管・給水管・ブロー管の接続部。</div>
+      <div class="manual-step-criteria">外観正常，全可視管路接続部に漏水・漏れなし</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A1 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- A2 本体汚れ/変色 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="14" width="60" height="76" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <line x1="22" y1="26" x2="78" y2="26" stroke="#1a2332" stroke-width="0.4" stroke-dasharray="1,1"/>
+        <line x1="22" y1="50" x2="78" y2="50" stroke="#1a2332" stroke-width="0.4" stroke-dasharray="1,1"/>
+        <line x1="22" y1="74" x2="78" y2="74" stroke="#1a2332" stroke-width="0.4" stroke-dasharray="1,1"/>
+        <ellipse cx="40" cy="40" rx="6" ry="3" fill="#C8102E" opacity="0.4"/>
+        <text x="40" y="42" font-family="Arial" font-size="6" font-weight="900" fill="#C8102E" text-anchor="middle">!</text>
+        <circle cx="65" cy="65" r="3" fill="none" stroke="#C8102E" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A2</div>
+        <span class="manual-step-tag">BODY CHECK</span>
+      </div>
+      <div class="manual-step-title">本体汚れ / 変色点検</div>
+      <div class="manual-step-desc">ボイラー本体確認<strong>異常なし汚れ、変色、焼損痕</strong>。表面変色は局所過熱の可能性（水垢、空焚き）。</div>
+      <div class="manual-step-criteria">本体外観均一，黒斑なし、赤錆痕、油汚れ</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A2 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- A3 接続部緩み -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="44" width="80" height="14" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <rect x="42" y="38" width="16" height="26" fill="white" stroke="#1a2332" stroke-width="1.2"/>
+        <circle cx="46" cy="42" r="1.5" fill="#1a2332"/>
+        <circle cx="54" cy="42" r="1.5" fill="#1a2332"/>
+        <circle cx="46" cy="60" r="1.5" fill="#1a2332"/>
+        <circle cx="54" cy="60" r="1.5" fill="#1a2332"/>
+        <!-- レンチ -->
+        <g transform="translate(70, 70) rotate(-30)">
+          <rect x="0" y="0" width="20" height="3" fill="#1a2332"/>
+          <path d="M 18 -2 L 24 -2 L 26 0 L 26 5 L 24 7 L 18 7 Z" fill="#1a2332"/>
+          <rect x="20" y="1" width="3" height="3" fill="#FAF7F0"/>
+        </g>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A3</div>
+        <span class="manual-step-tag">TIGHTNESS</span>
+      </div>
+      <div class="manual-step-title">接続部緩み点検</div>
+      <div class="manual-step-desc">管路接続部を順回確認（フランジ、ねじ、ホース継手），確認<strong>全接続部緊固</strong>。緩み発見時は直ちにレンチで締付。</div>
+      <div class="manual-step-criteria">全接続部に漏れなし、異音なし；ねじ脱落なし</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A3 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01 ‧ A 區起動前点検</span>
+    <span class="center">PRE-START 1/3</span>
+    <span class="right">第 3 頁</span>
+  </div>
+</div>
+
+<!-- ============== 第 4 頁：A 區 2/3（A4-A6） ============== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="doc-no">SOP-01 / REV. A</span>
+      <div class="page-title">A 區｜起動前点検</div>
+      <div class="page-subtitle">PRE-START INSPECTION ‧ 2 / 3</div>
+    </div>
+    <div class="page-header-right">
+      <div class="company">国精化学 ‧ QUALIPOLY</div>
+      <div>SE-2000/2500/3000APG</div>
+    </div>
+  </div>
+
+  <!-- A4 給水タンク -->
+  <div class="manual-step go">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 給水タンク -->
+        <path d="M 8 10 L 8 58 Q 8 64 14 64 L 36 64 Q 42 64 42 58 L 42 10 Z" fill="white" stroke="#1a2332" stroke-width="1.5"/>
+        <ellipse cx="25" cy="10" rx="17" ry="3" fill="#E3F0FA" stroke="#1a2332" stroke-width="1.5"/>
+        <path d="M 9 26 L 41 26 L 41 58 Q 41 63 36 63 L 14 63 Q 9 63 9 58 Z" fill="#3E97D6" opacity="0.6"/>
+        <!-- 出口管路（往右） -->
+        <line x1="42" y1="50" x2="78" y2="50" stroke="#1a2332" stroke-width="2"/>
+        <line x1="42" y1="56" x2="78" y2="56" stroke="#1a2332" stroke-width="2"/>
+        <!-- 円盤弁（往左下移以留出右上空間給「開」字） -->
+        <rect x="56" y="46" width="8" height="14" fill="#f0ede2" stroke="#1a2332" stroke-width="1"/>
+        <rect x="59" y="28" width="2" height="20" fill="#1a2332"/>
+        <circle cx="60" cy="22" r="9" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <line x1="51" y1="22" x2="69" y2="22" stroke="#1a2332" stroke-width="1.2"/>
+        <line x1="60" y1="13" x2="60" y2="31" stroke="#1a2332" stroke-width="1.2"/>
+        <line x1="54" y1="16" x2="66" y2="28" stroke="#1a2332" stroke-width="1"/>
+        <line x1="66" y1="16" x2="54" y2="28" stroke="#1a2332" stroke-width="1"/>
+        <!-- 緑反時計回り符號 ↺ -->
+        <text x="86" y="24" font-family="Arial, sans-serif" font-size="20" font-weight="900" fill="#00875A" text-anchor="middle">↺</text>
+        <!-- 「開」字緑圓標籤（放右下空白處） -->
+        <g transform="translate(78, 38)">
+          <circle cx="7" cy="7" r="7" fill="#00875A"/>
+          <text x="7" y="10.5" font-family="'PMingLiU', '新細明體'" font-size="9" font-weight="900" fill="white" text-anchor="middle">開</text>
+        </g>
+        <!-- 標籤（在底部空間） -->
+        <text x="50" y="80" font-family="'PMingLiU', '新細明體'" font-size="7" font-weight="700" fill="#1a2332" text-anchor="middle">給水タンク+出口弁</text>
+        <text x="50" y="89" font-family="JetBrains Mono, monospace" font-size="5" fill="#666" text-anchor="middle">反時計回り開</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A4</div>
+        <span class="manual-step-tag">WATER TANK + VALVE</span>
+      </div>
+      <div class="manual-step-title">給水タンク水量+出口弁</div>
+      <div class="manual-step-desc">給水タンク水位確認<strong>50%以上</strong>。<em>反時計回り</em>給水タンク出口弁を開（ハンドル式），全閉まで回す。</div>
+      <div class="manual-step-criteria">ハンドル全閉まで回す，給水管路に水流通過</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A4 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- A5 ガス元弁 -->
+  <div class="manual-step go">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="12" y="44" width="76" height="14" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <rect x="42" y="36" width="16" height="30" fill="#fafaf5" stroke="#1a2332" stroke-width="1.5"/>
+        <circle cx="50" cy="51" r="6" fill="white" stroke="#1a2332" stroke-width="1"/>
+        <rect x="22" y="29" width="56" height="5" fill="#C8102E" stroke="#1a2332" stroke-width="1"/>
+        <circle cx="50" cy="32" r="3" fill="#1a2332"/>
+        <line x1="22" y1="32" x2="78" y2="32" stroke="#00875A" stroke-width="0.8" stroke-dasharray="2,1.5"/>
+        <g transform="translate(78, 8)">
+          <circle cx="8" cy="8" r="7" fill="#00875A"/>
+          <path d="M 4 8.5 L 7 11 L 12 5" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        </g>
+        <text x="50" y="80" font-family="PMingLiU, sans-serif" font-size="7.5" font-weight="700" fill="#1a2332" text-anchor="middle">ガス元弁</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A5</div>
+        <span class="manual-step-tag">GAS VALVE + LEAK CHECK</span>
+      </div>
+      <div class="manual-step-title">ガス元弁 + ガス漏れ点検</div>
+      <div class="manual-step-desc">ハンドルを<strong>管路と平行</strong>（開）。開後に接続部を嗅ぐ、管路，並用檢漏液点検。<em>ガス臭時は直ちに閉じ通報</em>。</div>
+      <div class="manual-step-criteria">ガス臭なし、漏れ検知液に気泡なし</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A5 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- A6 薬剤量 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 管路 + 泵 -->
+        <line x1="50" y1="20" x2="50" y2="6" stroke="#1a2332" stroke-width="1.5"/>
+        <rect x="42" y="2" width="16" height="6" fill="#1a2332"/>
+        <!-- 桶身 -->
+        <rect x="32" y="20" width="36" height="65" fill="white" stroke="#1a2332" stroke-width="1.5"/>
+        <rect x="32" y="20" width="36" height="6" fill="#0F2A47"/>
+        <!-- 薬剤量（黃） -->
+        <rect x="33" y="50" width="34" height="34" fill="#F6BE00" opacity="0.7"/>
+        <!-- 刻度（向桶內凸出） -->
+        <line x1="32" y1="35" x2="38" y2="35" stroke="#1a2332" stroke-width="0.8"/>
+        <line x1="32" y1="50" x2="38" y2="50" stroke="#1a2332" stroke-width="0.8"/>
+        <line x1="32" y1="65" x2="38" y2="65" stroke="#1a2332" stroke-width="0.8"/>
+        <line x1="32" y1="80" x2="38" y2="80" stroke="#1a2332" stroke-width="0.8"/>
+        <!-- 刻度數字（往左移到框內邊緣，靠右對齊） -->
+        <text x="30" y="38" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a2332" text-anchor="end">100</text>
+        <text x="30" y="53" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#C8102E" font-weight="900" text-anchor="end">50</text>
+        <text x="30" y="83" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a2332" text-anchor="end">0</text>
+        <text x="14" y="55" font-family="Arial" font-size="5" fill="#666" text-anchor="middle">(%)</text>
+        <!-- 標籤 -->
+        <rect x="40" y="60" width="20" height="16" fill="white" stroke="#1a2332" stroke-width="0.8"/>
+        <text x="50" y="68" font-family="Arial" font-size="5" fill="#1a2332" text-anchor="middle">SAM</text>
+        <text x="50" y="74" font-family="Arial" font-size="5" fill="#1a2332" text-anchor="middle">CLEAN</text>
+        <!-- 警示箭頭：低於 50% 的紅色提示（指向 50% 刻度線） -->
+        <g transform="translate(70, 48)">
+          <path d="M 0 4 Q 12 4 10 -4" fill="none" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round"/>
+          <!-- 箭頭頭：兩根直線（從尖端 -1,4 往右上、右下枚開） -->
+          <line x1="-1" y1="4" x2="4" y2="1" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="-1" y1="4" x2="4" y2="7" stroke="#C8102E" stroke-width="1.8" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A6</div>
+        <span class="manual-step-tag">CHEMICAL CHECK</span>
+      </div>
+      <div class="manual-step-title">薬剤タンク薬剤量点検</div>
+      <div class="manual-step-desc">目盛で確認 SAMCLEAN ボイラー薬剤量<strong>50%以上</strong>。50%未満時は直ちに補充。</div>
+      <div class="manual-step-criteria">薬剤量充分（&gt; 50%），注入ポンプ接続部に漏れなし</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A6 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01 ‧ A 區起動前点検</span>
+    <span class="center">PRE-START 2/3</span>
+    <span class="right">第 4 頁</span>
+  </div>
+</div>
+
+<!-- ============== 第 5 頁：A 區 3/3（A7-A9） ============== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="doc-no">SOP-01 / REV. A</span>
+      <div class="page-title">A 區｜起動前点検</div>
+      <div class="page-subtitle">PRE-START INSPECTION ‧ 3 / 3</div>
+    </div>
+    <div class="page-header-right">
+      <div class="company">国精化学 ‧ QUALIPOLY</div>
+      <div>SE-2000/2500/3000APG</div>
+    </div>
+  </div>
+
+  <!-- A7 軟水検査 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 試劑滴管 -->
+        <rect x="32" y="2" width="8" height="14" fill="white" stroke="#1a2332" stroke-width="1"/>
+        <circle cx="36" cy="13" r="2" fill="#C8102E"/>
+        <!-- 試管（縮小往左移） -->
+        <path d="M 22 18 L 22 70 Q 22 80 32 80 L 40 80 Q 50 80 50 70 L 50 18 Z" fill="#E3F0FA" stroke="#1a2332" stroke-width="1.5"/>
+        <ellipse cx="36" cy="18" rx="14" ry="3" fill="white" stroke="#1a2332" stroke-width="1.5"/>
+        <!-- 內水（藍色 = OK 状態） -->
+        <path d="M 23 32 L 49 32 L 49 70 Q 49 79 40 79 L 32 79 Q 23 79 23 70 Z" fill="#3E97D6" opacity="0.75"/>
+        <!-- OK / NG 對照（往內收，貼著右邊） -->
+        <g transform="translate(60, 26)">
+          <rect x="0" y="0" width="36" height="14" fill="#00875A"/>
+          <text x="18" y="9.5" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">青 = OK</text>
+        </g>
+        <g transform="translate(60, 50)">
+          <rect x="0" y="0" width="36" height="14" fill="#C8102E"/>
+          <text x="18" y="9.5" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">赤 = NG</text>
+        </g>
+        <!-- 標題 -->
+        <text x="50" y="92" font-family="PMingLiU, sans-serif" font-size="7" font-weight="700" fill="#1a2332" text-anchor="middle">水質硬度試験</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A7</div>
+        <span class="manual-step-tag">WATER TEST</span>
+      </div>
+      <div class="manual-step-title">軟水検査（試薬）</div>
+      <div class="manual-step-desc">軟水器出口水を採取，滴 <strong>1~2 滴水質硬度試薬</strong>。試劑赤変 → 直ちに手動再生。</div>
+      <div class="manual-step-criteria">試薬青色 = 軟水合格，ボイラー給水可</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A7 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- A8 主蒸気弁閉確認 -->
+  <div class="manual-step caution">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 管路 + フランジ -->
+        <rect x="6" y="55" width="88" height="12" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <rect x="32" y="51" width="4" height="20" fill="#1a2332"/>
+        <rect x="64" y="51" width="4" height="20" fill="#1a2332"/>
+        <!-- 弁体 -->
+        <path d="M 36 45 L 64 45 L 68 61 L 64 77 L 36 77 L 32 61 Z" fill="#fafaf5" stroke="#1a2332" stroke-width="1.5"/>
+        <!-- 弁棒 -->
+        <rect x="48" y="20" width="4" height="27" fill="#f0ede2" stroke="#1a2332" stroke-width="0.8"/>
+        <!-- 円盤ハンドル（縮小 + 上移） -->
+        <circle cx="50" cy="14" r="10" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <line x1="41" y1="14" x2="59" y2="14" stroke="#1a2332" stroke-width="1"/>
+        <line x1="50" y1="5" x2="50" y2="23" stroke="#1a2332" stroke-width="1"/>
+        <line x1="43" y1="8" x2="57" y2="20" stroke="#1a2332" stroke-width="1"/>
+        <line x1="57" y1="8" x2="43" y2="20" stroke="#1a2332" stroke-width="1"/>
+        <!-- 「關」標籤放右下空白處（不擋弁棒） -->
+        <g transform="translate(78, 36)">
+          <circle cx="7" cy="7" r="7" fill="#C8102E"/>
+          <text x="7" y="10.5" font-family="PMingLiU, serif" font-size="9" font-weight="900" fill="white" text-anchor="middle">關</text>
+        </g>
+        <!-- 底部標籤 -->
+        <text x="50" y="92" font-family="PMingLiU, sans-serif" font-size="7" font-weight="700" fill="#1a2332" text-anchor="middle">主蒸気弁</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A8</div>
+        <span class="manual-step-tag">CONFIRM CLOSED</span>
+      </div>
+      <div class="manual-step-title">主蒸気弁【閉】確認</div>
+      <div class="manual-step-desc">起動前の主蒸気弁<em>閉必須</em>。<strong>時計回り</strong>轉到底為閉状態。起動瞬間に蒸気衝撃発生。</div>
+      <div class="manual-step-criteria">ハンドル無法繼續時計回り轉動，下流に蒸気流通音なし</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A8 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- A9 ブロー弁/給気弁 -->
+  <div class="manual-step caution">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 上：ボイラーブロー弁（ボール弁，ハンドル垂直 = 關） -->
+        <rect x="20" y="14" width="60" height="10" fill="#f0ede2" stroke="#1a2332" stroke-width="1.2"/>
+        <rect x="44" y="8" width="12" height="22" fill="#fafaf5" stroke="#1a2332" stroke-width="1.2"/>
+        <rect x="48" y="0" width="4" height="14" fill="#C8102E" stroke="#1a2332" stroke-width="0.5"/>
+        <circle cx="50" cy="13" r="2" fill="#1a2332"/>
+        <text x="50" y="40" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">ボイラーブロー弁</text>
+
+        <!-- 「關」紅圓（不在右上而在弁旁邊） -->
+        <g transform="translate(82, 14)">
+          <circle cx="6" cy="6" r="6" fill="#C8102E"/>
+          <text x="6" y="9" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">關</text>
+        </g>
+
+        <!-- 分隔線 -->
+        <line x1="6" y1="50" x2="94" y2="50" stroke="#1a2332" stroke-width="0.4" stroke-dasharray="2,2"/>
+
+        <!-- 下：給気弁（ボール弁，ハンドル垂直 = 關） -->
+        <rect x="20" y="65" width="60" height="10" fill="#f0ede2" stroke="#1a2332" stroke-width="1.2"/>
+        <rect x="44" y="59" width="12" height="22" fill="#fafaf5" stroke="#1a2332" stroke-width="1.2"/>
+        <rect x="48" y="55" width="4" height="14" fill="#C8102E" stroke="#1a2332" stroke-width="0.5"/>
+        <circle cx="50" cy="64" r="2" fill="#1a2332"/>
+        <text x="50" y="93" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">給気弁</text>
+
+        <g transform="translate(82, 65)">
+          <circle cx="6" cy="6" r="6" fill="#C8102E"/>
+          <text x="6" y="9" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">關</text>
+        </g>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">A9</div>
+        <span class="manual-step-tag">CONFIRM CLOSED</span>
+      </div>
+      <div class="manual-step-title">ブロー弁+給気弁【閉】確認</div>
+      <div class="manual-step-desc">ボール弁2個のハンドル必須<strong>管路に垂直</strong>（閉状態）。開状態で起動すると大量水/ガス漏出。</div>
+      <div class="manual-step-criteria">兩弁ハンドル皆呈垂直，水/ガス漏れなし</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">A9 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01 ‧ A 區起動前点検</span>
+    <span class="center">PRE-START 3/3</span>
+    <span class="right">第 5 頁</span>
+  </div>
+</div>
+
+<!-- ============== 第 6 頁：B 區起動運転 ============== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="doc-no">SOP-01 / REV. A</span>
+      <div class="page-title">B 區｜起動運転</div>
+      <div class="page-subtitle">START-UP PROCEDURE</div>
+    </div>
+    <div class="page-header-right">
+      <div class="company">国精化学 ‧ QUALIPOLY</div>
+      <div>SE-2000/2500/3000APG</div>
+    </div>
+  </div>
+
+  <div class="section-banner">
+    <div class="section-banner-num">B</div>
+    <div>
+      <div class="section-banner-title-zh">起動運転</div>
+      <div class="section-banner-title-en">START-UP PROCEDURE</div>
+    </div>
+    <div class="section-banner-meta">Aエリア完了後 ‧ 計4ステップ</div>
+  </div>
+
+  <!-- B1 按運転スイッチ -->
+  <div class="manual-step go">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- パネル外殼 -->
+        <rect x="10" y="8" width="80" height="84" fill="#1a2332" stroke="#1a2332" stroke-width="1.5" rx="2"/>
+        <!-- ディスプレイ -->
+        <rect x="18" y="16" width="64" height="14" fill="#0a0f1a" stroke="#444" stroke-width="0.5"/>
+        <text x="50" y="25" font-family="JetBrains Mono, monospace" font-size="5" fill="#00ff88" text-anchor="middle">[状態] 待機</text>
+        <!-- ボイラー表示ランプ（亮綠 = 啟動後）-->
+        <circle cx="50" cy="48" r="11" fill="none" stroke="#444" stroke-width="0.8"/>
+        <circle cx="50" cy="48" r="8" fill="#00ff88"/>
+        <text x="50" y="51" font-family="PMingLiU, sans-serif" font-size="4" font-weight="900" fill="#1a2332" text-anchor="middle">綠</text>
+        <!-- START/STOP 按ボタン（置中、放大） -->
+        <rect x="32" y="68" width="36" height="20" fill="#00875A" stroke="white" stroke-width="0.8" rx="2"/>
+        <text x="50" y="78" font-family="JetBrains Mono, monospace" font-size="6" font-weight="900" fill="white" text-anchor="middle">START</text>
+        <text x="50" y="85" font-family="JetBrains Mono, monospace" font-size="5" fill="white" text-anchor="middle">/STOP</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">B1</div>
+        <span class="manual-step-tag">PRESS START</span>
+      </div>
+      <div class="manual-step-title">【運転スイッチ】押下起動</div>
+      <div class="manual-step-desc">電源ランプ点灯確認<strong>橙色</strong>後運転ボタン押下。ボイラー表示ランプが<em>緑</em>初期給水開始表示。</div>
+      <div class="manual-step-criteria">運転ランプ緑点灯，ブザー停止</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">B1 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B2 着火待ち -->
+  <div class="manual-step go">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="12" y="14" width="76" height="62" fill="#1a2332" stroke="#1a2332" stroke-width="1.5"/>
+        <path d="M 35 70 Q 32 50 40 42 Q 38 55 45 50 Q 42 35 50 28 Q 50 45 56 42 Q 53 55 60 50 Q 60 60 65 70 Z" fill="#F6BE00" stroke="#C8102E" stroke-width="1"/>
+        <path d="M 40 70 Q 38 58 44 52 Q 44 60 50 56 Q 48 48 54 44 Q 54 56 60 52 Q 58 64 62 70 Z" fill="#FFE082"/>
+        <g transform="translate(8, 82)">
+          <rect x="0" y="0" width="20" height="6" fill="#00875A"/>
+          <text x="10" y="5" font-family="JetBrains Mono, monospace" font-size="4.5" font-weight="900" fill="white" text-anchor="middle">HIGH</text>
+          <rect x="22" y="0" width="20" height="6" fill="#444"/>
+          <text x="32" y="5" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#888" text-anchor="middle">MID</text>
+          <rect x="44" y="0" width="20" height="6" fill="#444"/>
+          <text x="54" y="5" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#888" text-anchor="middle">LOW</text>
+          <rect x="66" y="0" width="20" height="6" fill="#444"/>
+          <text x="76" y="5" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#888" text-anchor="middle">PILOT</text>
+        </g>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">B2</div>
+        <span class="manual-step-tag">WAIT IGNITION</span>
+      </div>
+      <div class="manual-step-title">着火完了待ち</div>
+      <div class="manual-step-desc">システム自動実行：初期給水 → 前通風 → 着火 → 燃焼。<strong>燃焼状態ランプ点灯待ち</strong>，全工程約 1~2 分。</div>
+      <div class="manual-step-criteria">燃焼状態ランプ緑点灯（HIGH/MID/LOW 任一）</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">B2 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B3 慢開主蒸気弁（重時） -->
+  <div class="manual-step danger">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 管路 + フランジ -->
+        <rect x="6" y="60" width="88" height="12" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <rect x="32" y="56" width="4" height="20" fill="#1a2332"/>
+        <rect x="64" y="56" width="4" height="20" fill="#1a2332"/>
+        <!-- 弁体 -->
+        <path d="M 36 50 L 64 50 L 68 66 L 64 82 L 36 82 L 32 66 Z" fill="#fafaf5" stroke="#1a2332" stroke-width="1.5"/>
+        <!-- 弁棒 -->
+        <rect x="48" y="22" width="4" height="30" fill="#f0ede2" stroke="#1a2332" stroke-width="0.8"/>
+        <!-- 円盤ハンドル（縮小） -->
+        <circle cx="50" cy="14" r="10" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <line x1="41" y1="14" x2="59" y2="14" stroke="#1a2332" stroke-width="1"/>
+        <line x1="50" y1="5" x2="50" y2="23" stroke="#1a2332" stroke-width="1"/>
+        <line x1="43" y1="8" x2="57" y2="20" stroke="#1a2332" stroke-width="1"/>
+        <line x1="57" y1="8" x2="43" y2="20" stroke="#1a2332" stroke-width="1"/>
+        <!-- 慢開反時計回り符號 ↺（紅色） -->
+        <text x="80" y="20" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="#C8102E" text-anchor="middle">↺</text>
+        <!-- 「慢」字大紅標籤（在右下空白處） -->
+        <g transform="translate(78, 36)">
+          <rect x="0" y="0" width="18" height="14" fill="#C8102E" rx="1"/>
+          <text x="9" y="11" font-family="PMingLiU, serif" font-size="10" font-weight="900" fill="white" text-anchor="middle">慢</text>
+        </g>
+        <!-- 標籤 -->
+        <text x="50" y="96" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">主蒸気弁(緩開)</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">B3</div>
+        <span class="manual-step-tag">CRITICAL ‧ 關鍵步驟</span>
+      </div>
+      <div class="manual-step-title">主蒸気弁ゆっくり開</div>
+      <div class="manual-step-desc"><em>必ずゆっくり反時計回り</em>主蒸気弁を開。急開時の発生<strong>ウォーターハンマーと気水計沸</strong>，毎秒1/4回転以下推奨。</div>
+      <div class="manual-step-criteria">蒸気圧力計指針安定上昇、激しい振れなし；下流にウォーターハンマー音なし</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">B3 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- B4 圧力安定 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="44" r="32" fill="white" stroke="#1a2332" stroke-width="1.8"/>
+        <g transform="translate(50,44)">
+          <path d="M -22 -14 A 26 26 0 0 1 22 -14" fill="none" stroke="#00875A" stroke-width="2.5"/>
+          <path d="M 22 -14 A 26 26 0 0 1 22 14" fill="none" stroke="#C8102E" stroke-width="2.5"/>
+          <line x1="0" y1="0" x2="-8" y2="-18" stroke="#1a2332" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="2.5" fill="#1a2332"/>
+        </g>
+        <text x="50" y="92" font-family="JetBrains Mono, monospace" font-size="7" font-weight="900" fill="#00875A" text-anchor="middle">0.49 ~ 0.88 MPa</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num">B4</div>
+        <span class="manual-step-tag">PRESSURE STABLE</span>
+      </div>
+      <div class="manual-step-title">圧力安定確認</div>
+      <div class="manual-step-desc">蒸気供給後，圧力安定確認 <strong>0.49 ~ 0.88 MPa</strong> 間。指針<em>劇烈擺動</em>0.9MPa超過時は直ちに停止検査。</div>
+      <div class="manual-step-criteria">圧力安定、指針異常振れなし、燃焼状態ランプ正常切替</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">B4 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01 ‧ B 區起動運転</span>
+    <span class="center">START-UP</span>
+    <span class="right">第 6 頁</span>
+  </div>
+</div>
+
+<!-- ============== 第 7 頁：C 區運転中巡視 ============== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="doc-no">SOP-01 / REV. A</span>
+      <div class="page-title">C 區｜運転中巡視</div>
+      <div class="page-subtitle">OPERATION CHECK ‧ 1~2時間毎</div>
+    </div>
+    <div class="page-header-right">
+      <div class="company">国精化学 ‧ QUALIPOLY</div>
+      <div>SE-2000/2500/3000APG</div>
+    </div>
+  </div>
+
+  <div class="section-banner">
+    <div class="section-banner-num yellow">C</div>
+    <div>
+      <div class="section-banner-title-zh">運転中巡視</div>
+      <div class="section-banner-title-en">OPERATION CHECK</div>
+    </div>
+    <div class="section-banner-meta">1~2時間毎 ‧ 計 6 時</div>
+  </div>
+
+  <div style="background: var(--check-blue-bg); border-left: 4px solid var(--check-blue); padding: 3mm 4mm; margin-bottom: 5mm; font-size: 9.5pt; line-height: 1.5;">
+    <strong style="color: var(--check-blue); font-family: 'PMingLiU', '新細明體', serif;">巡視方法：</strong>
+    推奨1~2時間毎巡視一回，完了毎に当直点検表（CHK-01）該当時間枠にチェック。本頁チェック欄は即時確認用。
+  </div>
+
+  <!-- 6点巡視以表格列出 -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3mm;">
+
+    <div class="manual-step caution" style="grid-template-columns: 32mm 1fr;">
+      <div class="manual-step-illust">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="22" cy="30" r="14" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+          <circle cx="22" cy="30" r="3" fill="#1a2332"/>
+          <g transform="translate(22,30)">
+            <path d="M 0 -12 Q 5 -6 0 -2 Q -5 -6 0 -12" fill="#fafaf5" stroke="#1a2332" stroke-width="0.6"/>
+            <g transform="rotate(120)"><path d="M 0 -12 Q 5 -6 0 -2 Q -5 -6 0 -12" fill="#fafaf5" stroke="#1a2332" stroke-width="0.6"/></g>
+            <g transform="rotate(240)"><path d="M 0 -12 Q 5 -6 0 -2 Q -5 -6 0 -12" fill="#fafaf5" stroke="#1a2332" stroke-width="0.6"/></g>
+          </g>
+          <path d="M 40 22 Q 45 18 50 22" fill="none" stroke="#00875A" stroke-width="1.2"/>
+          <path d="M 38 16 Q 44 9 52 16" fill="none" stroke="#00875A" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <div class="manual-step-content" style="padding: 3mm 4mm;">
+        <div class="manual-step-num-row" style="margin-bottom: 1mm;">
+          <div class="manual-step-num" style="min-width: 9mm; height: 7mm; font-size: 9pt;">C1</div>
+          <span class="manual-step-tag">SOUND</span>
+        </div>
+        <div class="manual-step-title" style="font-size: 11pt;">運転音正常</div>
+        <div class="manual-step-desc" style="font-size: 9pt;">ファン/給水ポンプ<strong>異音なし、振動なし</strong>。</div>
+        <div class="checkbox-row" style="margin-top: 2mm; padding-top: 1.5mm;">
+          <span class="checkbox" style="width: 4mm; height: 4mm;"></span>
+          <span class="checkbox-label" style="font-size: 8.5pt;">確認済</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="manual-step caution" style="grid-template-columns: 32mm 1fr;">
+      <div class="manual-step-illust">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="28" r="22" fill="white" stroke="#1a2332" stroke-width="1.5"/>
+          <g transform="translate(30,28)">
+            <path d="M -16 -10 A 18 18 0 0 1 16 -10" fill="none" stroke="#00875A" stroke-width="2.2"/>
+            <path d="M 16 -10 A 18 18 0 0 1 16 10" fill="none" stroke="#C8102E" stroke-width="2.2"/>
+            <line x1="0" y1="0" x2="-6" y2="-13" stroke="#1a2332" stroke-width="1.8"/>
+            <circle cx="0" cy="0" r="2" fill="#1a2332"/>
+          </g>
+        </svg>
+      </div>
+      <div class="manual-step-content" style="padding: 3mm 4mm;">
+        <div class="manual-step-num-row" style="margin-bottom: 1mm;">
+          <div class="manual-step-num" style="min-width: 9mm; height: 7mm; font-size: 9pt;">C2</div>
+          <span class="manual-step-tag">PRESSURE</span>
+        </div>
+        <div class="manual-step-title" style="font-size: 11pt;">蒸気圧力正常範囲内</div>
+        <div class="manual-step-desc" style="font-size: 9pt;">指針安定<strong>緑範囲</strong>，極端な振れなし。</div>
+        <div class="checkbox-row" style="margin-top: 2mm; padding-top: 1.5mm;">
+          <span class="checkbox" style="width: 4mm; height: 4mm;"></span>
+          <span class="checkbox-label" style="font-size: 8.5pt;">確認済</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="manual-step caution" style="grid-template-columns: 32mm 1fr;">
+      <div class="manual-step-illust">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- ガス管路 -->
+          <rect x="6" y="34" width="48" height="10" fill="#f0ede2" stroke="#1a2332" stroke-width="1.2"/>
+          <!-- 弁体（簡化） -->
+          <rect x="24" y="30" width="12" height="18" fill="#fafaf5" stroke="#1a2332" stroke-width="1"/>
+          <!-- 鼻子聞氣味（黃色臉部、左側） -->
+          <g transform="translate(8, 8)">
+            <circle cx="8" cy="8" r="7" fill="#FFE0B5" stroke="#1a2332" stroke-width="1"/>
+            <circle cx="6" cy="7" r="0.8" fill="#1a2332"/>
+            <circle cx="10" cy="7" r="0.8" fill="#1a2332"/>
+            <path d="M 6 11 Q 8 12.5 10 11" fill="none" stroke="#1a2332" stroke-width="0.8"/>
+          </g>
+          <!-- 大綠勾（右上、ガス臭なし） -->
+          <g transform="translate(40, 6)">
+            <circle cx="7" cy="7" r="7" fill="#00875A"/>
+            <path d="M 3 7.5 L 6 10.5 L 11 4.5" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <!-- 無ガス漏れ標示（虛線檢漏液氣泡狀，全部標 X 表無洩漏） -->
+          <text x="30" y="58" font-family="PMingLiU, sans-serif" font-size="6" font-weight="700" fill="#00875A" text-anchor="middle">ガス臭なし</text>
+        </svg>
+      </div>
+      <div class="manual-step-content" style="padding: 3mm 4mm;">
+        <div class="manual-step-num-row" style="margin-bottom: 1mm;">
+          <div class="manual-step-num" style="min-width: 9mm; height: 7mm; font-size: 9pt;">C3</div>
+          <span class="manual-step-tag">GAS LEAK</span>
+        </div>
+        <div class="manual-step-title" style="font-size: 11pt;">ガス漏れなし</div>
+        <div class="manual-step-desc" style="font-size: 9pt;">接続部・管路を嗅ぐ，<em>ガス臭なし確認</em>。</div>
+        <div class="checkbox-row" style="margin-top: 2mm; padding-top: 1.5mm;">
+          <span class="checkbox" style="width: 4mm; height: 4mm;"></span>
+          <span class="checkbox-label" style="font-size: 8.5pt;">確認済</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="manual-step caution" style="grid-template-columns: 32mm 1fr;">
+      <div class="manual-step-illust">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- 軟水器主體（往上移） -->
+          <rect x="6" y="6" width="18" height="32" fill="#fafaf5" stroke="#1a2332" stroke-width="1.5" rx="1"/>
+          <ellipse cx="15" cy="6" rx="9" ry="2" fill="white" stroke="#1a2332" stroke-width="1"/>
+          <!-- 出水管 -->
+          <line x1="24" y1="18" x2="36" y2="18" stroke="#1a2332" stroke-width="1.5"/>
+          <line x1="24" y1="24" x2="36" y2="24" stroke="#1a2332" stroke-width="1.5"/>
+          <!-- 圧力錶（往上挪，避開底部文字） -->
+          <circle cx="44" cy="20" r="8" fill="white" stroke="#1a2332" stroke-width="1.2"/>
+          <g transform="translate(44, 20)">
+            <path d="M -5 -2 A 6 6 0 0 1 5 -2" fill="none" stroke="#00875A" stroke-width="1.4"/>
+            <line x1="0" y1="0" x2="-2" y2="-4" stroke="#1a2332" stroke-width="1.1"/>
+            <circle cx="0" cy="0" r="0.9" fill="#1a2332"/>
+          </g>
+          <!-- 圧力範圍標示（在框內底部，無遮擋） -->
+          <text x="30" y="48" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" fill="#00875A" text-anchor="middle">0.2 ~ 0.4 MPa</text>
+          <text x="30" y="56" font-family="PMingLiU, sans-serif" font-size="5" fill="#666" text-anchor="middle">範囲正常 ✓</text>
+        </svg>
+      </div>
+      <div class="manual-step-content" style="padding: 3mm 4mm;">
+        <div class="manual-step-num-row" style="margin-bottom: 1mm;">
+          <div class="manual-step-num" style="min-width: 9mm; height: 7mm; font-size: 9pt;">C4</div>
+          <span class="manual-step-tag">SOFTENER</span>
+        </div>
+        <div class="manual-step-title" style="font-size: 11pt;">軟水器入口圧力</div>
+        <div class="manual-step-desc" style="font-size: 9pt;">圧力錶在 <strong>0.2 ~ 0.4 MPa</strong> 範囲内。</div>
+        <div class="checkbox-row" style="margin-top: 2mm; padding-top: 1.5mm;">
+          <span class="checkbox" style="width: 4mm; height: 4mm;"></span>
+          <span class="checkbox-label" style="font-size: 8.5pt;">確認済</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="manual-step caution" style="grid-template-columns: 32mm 1fr;">
+      <div class="manual-step-illust">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- 給水タンク（置中） -->
+          <path d="M 10 10 L 10 48 Q 10 52 14 52 L 46 52 Q 50 52 50 48 L 50 10 Z" fill="white" stroke="#1a2332" stroke-width="1.2"/>
+          <ellipse cx="30" cy="10" rx="20" ry="2" fill="#E3F0FA" stroke="#1a2332" stroke-width="1"/>
+          <!-- 水位 -->
+          <path d="M 11 24 L 49 24 L 49 48 Q 49 51 46 51 L 14 51 Q 11 51 11 48 Z" fill="#3E97D6" opacity="0.6"/>
+          <!-- 進水口（左上） -->
+          <line x1="2" y1="16" x2="14" y2="16" stroke="#1a2332" stroke-width="1.5"/>
+          <rect x="14" y="14" width="3" height="4" fill="#1a2332"/>
+          <!-- 浮球 + 連桿 -->
+          <line x1="17" y1="16" x2="32" y2="24" stroke="#1a2332" stroke-width="1"/>
+          <circle cx="34" cy="24" r="5" fill="#fafaf5" stroke="#1a2332" stroke-width="1"/>
+          <!-- OK 標示 -->
+          <g transform="translate(45, 32)">
+            <circle cx="5" cy="5" r="5" fill="#00875A"/>
+            <path d="M 2.5 5.5 L 4.5 7.5 L 8 4" fill="none" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <div class="manual-step-content" style="padding: 3mm 4mm;">
+        <div class="manual-step-num-row" style="margin-bottom: 1mm;">
+          <div class="manual-step-num" style="min-width: 9mm; height: 7mm; font-size: 9pt;">C5</div>
+          <span class="manual-step-tag">FLOAT</span>
+        </div>
+        <div class="manual-step-title" style="font-size: 11pt;">ボールタップ動作正常</div>
+        <div class="manual-step-desc" style="font-size: 9pt;">水位低下時にボールタップ連動給水，<strong>水位上昇時に自動止水</strong>。</div>
+        <div class="checkbox-row" style="margin-top: 2mm; padding-top: 1.5mm;">
+          <span class="checkbox" style="width: 4mm; height: 4mm;"></span>
+          <span class="checkbox-label" style="font-size: 8.5pt;">確認済</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="manual-step caution" style="grid-template-columns: 32mm 1fr;">
+      <div class="manual-step-illust">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <rect x="14" y="14" width="32" height="30" fill="#fafaf5" stroke="#1a2332" stroke-width="1.2" rx="1"/>
+          <rect x="18" y="18" width="24" height="8" fill="#0F2A47"/>
+          <text x="30" y="24" font-family="JetBrains Mono, monospace" font-size="5" font-weight="900" fill="#00ff88" text-anchor="middle">100%</text>
+          <circle cx="22" cy="35" r="2" fill="#00875A"/>
+          <text x="30" y="37" font-family="PMingLiU, sans-serif" font-size="5" fill="#1a2332">運転</text>
+          <line x1="30" y1="44" x2="30" y2="52" stroke="#1a2332" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="manual-step-content" style="padding: 3mm 4mm;">
+        <div class="manual-step-num-row" style="margin-bottom: 1mm;">
+          <div class="manual-step-num" style="min-width: 9mm; height: 7mm; font-size: 9pt;">C6</div>
+          <span class="manual-step-tag">CHEMICAL PUMP</span>
+        </div>
+        <div class="manual-step-title" style="font-size: 11pt;">薬剤注入ポンプ運転</div>
+        <div class="manual-step-desc" style="font-size: 9pt;">指示ランプ規則的点滅，<strong>薬剤量正常低下</strong>。</div>
+        <div class="checkbox-row" style="margin-top: 2mm; padding-top: 1.5mm;">
+          <span class="checkbox" style="width: 4mm; height: 4mm;"></span>
+          <span class="checkbox-label" style="font-size: 8.5pt;">確認済</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="manual-warning" style="margin-top: 6mm;">
+    <div class="manual-warning-title">⚠ 巡視中異常発見時</div>
+    <div class="manual-warning-body">直ちに押下 <strong>運転 OFF</strong>，SOP-03異常クイックリファレンスに従い対処。CHK-01点検表異常欄に記録。</div>
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01 ‧ C 區運転中巡視</span>
+    <span class="center">OPERATION CHECK</span>
+    <span class="right">第 7 頁</span>
+  </div>
+</div>
+
+<!-- ============== 第 8 頁：D 區停止作業 ============== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="doc-no">SOP-01 / REV. A</span>
+      <div class="page-title">D 區｜停止作業</div>
+      <div class="page-subtitle">SHUTDOWN PROCEDURE</div>
+    </div>
+    <div class="page-header-right">
+      <div class="company">国精化学 ‧ QUALIPOLY</div>
+      <div>SE-2000/2500/3000APG</div>
+    </div>
+  </div>
+
+  <div class="section-banner">
+    <div class="section-banner-num red">D</div>
+    <div>
+      <div class="section-banner-title-zh">停止作業</div>
+      <div class="section-banner-title-en">SHUTDOWN PROCEDURE</div>
+    </div>
+    <div class="section-banner-meta">毎停止 ‧ 計4ステップ</div>
+  </div>
+
+  <!-- D1 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- パネル -->
+        <rect x="10" y="8" width="80" height="84" fill="#1a2332" stroke="#1a2332" stroke-width="1.5" rx="2"/>
+        <!-- ディスプレイ -->
+        <rect x="18" y="16" width="64" height="14" fill="#0a0f1a" stroke="#444" stroke-width="0.5"/>
+        <text x="50" y="25" font-family="JetBrains Mono, monospace" font-size="5" fill="#00ff88" text-anchor="middle">[停止] 後通風</text>
+        <!-- ボイラー表示ランプ：橘 -->
+        <circle cx="50" cy="48" r="11" fill="none" stroke="#444" stroke-width="0.8"/>
+        <circle cx="50" cy="48" r="8" fill="#F6BE00"/>
+        <text x="50" y="51" font-family="PMingLiU, sans-serif" font-size="4" font-weight="900" fill="#1a2332" text-anchor="middle">橘</text>
+        <!-- STOP 按ボタン（置中、放大） -->
+        <rect x="32" y="68" width="36" height="20" fill="#C8102E" stroke="white" stroke-width="0.8" rx="2"/>
+        <text x="50" y="78" font-family="JetBrains Mono, monospace" font-size="6" font-weight="900" fill="white" text-anchor="middle">STOP</text>
+        <text x="50" y="85" font-family="JetBrains Mono, monospace" font-size="5" fill="white" text-anchor="middle">/START</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num" style="background: var(--warning-red);">D1</div>
+        <span class="manual-step-tag">PRESS STOP</span>
+      </div>
+      <div class="manual-step-title">【運転スイッチ】押下停止</div>
+      <div class="manual-step-desc">運転ボタン押下後，ボイラー表示ランプが<strong>緑→橙</strong>，システム停止手順開始。</div>
+      <div class="manual-step-criteria">電源ランプ橙待機状態</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">D1 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D2 後通風 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="14" width="60" height="76" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <circle cx="14" cy="50" r="10" fill="white" stroke="#1a2332" stroke-width="1.2"/>
+        <g transform="translate(14,50)">
+          <path d="M 0 -7 Q 4 -3 0 -1 Q -4 -3 0 -7" fill="#1a2332"/>
+          <g transform="rotate(120)"><path d="M 0 -7 Q 4 -3 0 -1 Q -4 -3 0 -7" fill="#1a2332"/></g>
+          <g transform="rotate(240)"><path d="M 0 -7 Q 4 -3 0 -1 Q -4 -3 0 -7" fill="#1a2332"/></g>
+        </g>
+        <g stroke="#3E97D6" stroke-width="1.2" fill="none" stroke-linecap="round">
+          <path d="M 6 38 Q 0 38 -2 38"/>
+          <path d="M 6 50 Q 0 50 -2 50"/>
+          <path d="M 6 62 Q 0 62 -2 62"/>
+        </g>
+        <g transform="translate(50, 50)">
+          <circle cx="0" cy="0" r="14" fill="white" stroke="#1a2332" stroke-width="1.5"/>
+          <text x="0" y="3" font-family="JetBrains Mono, monospace" font-size="9" font-weight="900" fill="#1a2332" text-anchor="middle">AUTO</text>
+        </g>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num" style="background: var(--warning-red);">D2</div>
+        <span class="manual-step-tag">AUTO COOL</span>
+      </div>
+      <div class="manual-step-title">後通風（自動）</div>
+      <div class="manual-step-desc">システム後通風冷却自動実行。<strong>ボイラー表示ランプ完全消灯待ち</strong>完了とする（約2~3分）。<em>途中で電源切断不可</em>。</div>
+      <div class="manual-step-criteria">ボイラー表示ランプ完全消灯</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">D2 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D3 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 管路 -->
+        <rect x="6" y="62" width="88" height="12" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <!-- 弁体 -->
+        <path d="M 36 52 L 64 52 L 68 68 L 64 84 L 36 84 L 32 68 Z" fill="#fafaf5" stroke="#1a2332" stroke-width="1.5"/>
+        <!-- 弁棒 -->
+        <rect x="48" y="22" width="4" height="32" fill="#f0ede2" stroke="#1a2332" stroke-width="0.8"/>
+        <!-- 円盤ハンドル（縮小一時，移到 svg 框內中央位置） -->
+        <circle cx="50" cy="14" r="11" fill="#f0ede2" stroke="#1a2332" stroke-width="1.5"/>
+        <line x1="40" y1="14" x2="60" y2="14" stroke="#1a2332" stroke-width="1"/>
+        <line x1="50" y1="4" x2="50" y2="24" stroke="#1a2332" stroke-width="1"/>
+        <line x1="43" y1="7" x2="57" y2="21" stroke="#1a2332" stroke-width="1"/>
+        <line x1="57" y1="7" x2="43" y2="21" stroke="#1a2332" stroke-width="1"/>
+        <!-- 時計回り符號 ↻（紅色） -->
+        <text x="82" y="18" font-family="Arial, sans-serif" font-size="20" font-weight="900" fill="#C8102E" text-anchor="middle">↻</text>
+        <!-- 「關」字標籤獨立放（右下角空白處） -->
+        <g transform="translate(82, 36)">
+          <circle cx="6" cy="6" r="7" fill="#C8102E"/>
+          <text x="6" y="9.5" font-family="PMingLiU, serif" font-size="9" font-weight="900" fill="white" text-anchor="middle">關</text>
+        </g>
+        <!-- 標籤 -->
+        <text x="50" y="96" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">主蒸気弁</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num" style="background: var(--warning-red);">D3</div>
+        <span class="manual-step-tag">CLOSE STEAM VALVE</span>
+      </div>
+      <div class="manual-step-title">主蒸気弁閉</div>
+      <div class="manual-step-desc"><em>時計回り</em>轉至底部，ハンドル回転不可確認。</div>
+      <div class="manual-step-criteria">下流圧力ゼロ，蒸気漏れ音なし</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">D3 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D4 -->
+  <div class="manual-step">
+    <div class="manual-step-illust">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 上：給水タンク出口（円盤弁，ハンドル在管路上方） -->
+        <rect x="14" y="22" width="60" height="10" fill="#f0ede2" stroke="#1a2332" stroke-width="1"/>
+        <rect x="40" y="18" width="8" height="18" fill="#fafaf5" stroke="#1a2332" stroke-width="1"/>
+        <rect x="43" y="8" width="2" height="12" fill="#1a2332"/>
+        <circle cx="44" cy="8" r="6" fill="#f0ede2" stroke="#1a2332" stroke-width="1"/>
+        <line x1="38" y1="8" x2="50" y2="8" stroke="#1a2332" stroke-width="0.8"/>
+        <line x1="44" y1="2" x2="44" y2="14" stroke="#1a2332" stroke-width="0.8"/>
+        <!-- 「關」紅圓（往中間移） -->
+        <g transform="translate(76, 18)">
+          <circle cx="7" cy="7" r="7" fill="#C8102E"/>
+          <text x="7" y="10.5" font-family="PMingLiU, serif" font-size="9" font-weight="900" fill="white" text-anchor="middle">關</text>
+        </g>
+        <!-- 上方標籤（在圖下方） -->
+        <text x="44" y="46" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">給水タンク出口弁</text>
+
+        <!-- 分隔線 -->
+        <line x1="6" y1="54" x2="94" y2="54" stroke="#1a2332" stroke-width="0.4" stroke-dasharray="2,2"/>
+
+        <!-- 下：ガス元弁（ボール弁，ハンドル垂直 = 關） -->
+        <rect x="14" y="70" width="60" height="10" fill="#f0ede2" stroke="#1a2332" stroke-width="1"/>
+        <rect x="40" y="64" width="8" height="22" fill="#fafaf5" stroke="#1a2332" stroke-width="1"/>
+        <rect x="43" y="60" width="2" height="14" fill="#C8102E" stroke="#1a2332" stroke-width="0.5"/>
+        <circle cx="44" cy="74" r="2" fill="#1a2332"/>
+        <g transform="translate(76, 66)">
+          <circle cx="7" cy="7" r="7" fill="#C8102E"/>
+          <text x="7" y="10.5" font-family="PMingLiU, serif" font-size="9" font-weight="900" fill="white" text-anchor="middle">關</text>
+        </g>
+        <text x="44" y="94" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">ガス元弁</text>
+      </svg>
+    </div>
+    <div class="manual-step-content">
+      <div class="manual-step-num-row">
+        <div class="manual-step-num" style="background: var(--warning-red);">D4</div>
+        <span class="manual-step-tag">FINAL CLOSE</span>
+      </div>
+      <div class="manual-step-title">給水タンク弁+ガス元弁閉</div>
+      <div class="manual-step-desc">両弁閉。<em>電源切らないこと</em>，否則軟水器無法執行夜間自動再生。</div>
+      <div class="manual-step-criteria">両弁閉，主電源供給中</div>
+      <div class="checkbox-row">
+        <span class="checkbox"></span>
+        <span class="checkbox-label">D4 完了 <span class="small">/ Confirmed</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="manual-warning">
+    <div class="manual-warning-title">⚠ 停止後の重要注意</div>
+    <div class="manual-warning-body">電源<strong>絕對不要關</strong>。SS-□DE 型軟水器は夜間自動再生のため継続通電必要（未明 2 時）。電源切ると翌日のボイラー水硬度上昇、ボイラー損傷。</div>
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01 ‧ D 區停止作業</span>
+    <span class="center">SHUTDOWN</span>
+    <span class="right">第 8 頁</span>
+  </div>
+</div>
+
+<!-- ============== 第 9 頁：E 區緊急時 ============== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <span class="doc-no">SOP-01 / REV. A</span>
+      <div class="page-title">E 區｜緊急時クイック対応</div>
+      <div class="page-subtitle">EMERGENCY RESPONSE</div>
+    </div>
+    <div class="page-header-right">
+      <div class="company">国精化学 ‧ QUALIPOLY</div>
+      <div>SE-2000/2500/3000APG</div>
+    </div>
+  </div>
+
+  <div class="section-banner">
+    <div class="section-banner-num red">E</div>
+    <div>
+      <div class="section-banner-title-zh">緊急時クイック対応</div>
+      <div class="section-banner-title-en">EMERGENCY RESPONSE</div>
+    </div>
+    <div class="section-banner-meta">異常発生時 ‧ 計4ステップ</div>
+  </div>
+
+  <!-- 大流程圖 -->
+  <div style="background: var(--warning-red); color: white; padding: 4mm; margin-bottom: 5mm;">
+    <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 13pt; font-weight: 900; letter-spacing: 0.08em; margin-bottom: 3mm;">赤ランプ点滅/異常警報 → 直ちに実施</div>
+    <div style="display: flex; gap: 0; align-items: stretch; flex-wrap: nowrap;">
+      <div style="flex: 1; background: white; color: var(--warning-red); padding: 3mm 2mm; text-align: center; min-width: 0;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 8pt; opacity: 0.7; margin-bottom: 1mm;">STEP 01</div>
+        <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 11pt; font-weight: 900; line-height: 1.2;">運転 OFF</div>
+        <div style="font-size: 7.5pt; margin-top: 1mm; line-height: 1.3;">第一時間按下停止</div>
+      </div>
+      <div style="display: flex; align-items: center; padding: 0 2mm; font-size: 14pt; flex-shrink: 0;">▶</div>
+      <div style="flex: 1; background: white; color: var(--warning-red); padding: 3mm 2mm; text-align: center; min-width: 0;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 8pt; opacity: 0.7; margin-bottom: 1mm;">STEP 02</div>
+        <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 11pt; font-weight: 900; line-height: 1.2;">ガス元弁閉</div>
+        <div style="font-size: 7.5pt; margin-top: 1mm; line-height: 1.3;">燃料供給遮断</div>
+      </div>
+      <div style="display: flex; align-items: center; padding: 0 2mm; font-size: 14pt; flex-shrink: 0;">▶</div>
+      <div style="flex: 1; background: white; color: var(--warning-red); padding: 3mm 2mm; text-align: center; min-width: 0;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 8pt; opacity: 0.7; margin-bottom: 1mm;">STEP 03</div>
+        <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 11pt; font-weight: 900; line-height: 1.2;">コード記録</div>
+        <div style="font-size: 7.5pt; margin-top: 1mm; line-height: 1.3;">パネル表示器メッセージ</div>
+      </div>
+      <div style="display: flex; align-items: center; padding: 0 2mm; font-size: 14pt; flex-shrink: 0;">▶</div>
+      <div style="flex: 1; background: white; color: var(--warning-red); padding: 3mm 2mm; text-align: center; min-width: 0;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 8pt; opacity: 0.7; margin-bottom: 1mm;">STEP 04</div>
+        <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 11pt; font-weight: 900; line-height: 1.2;">上長報告</div>
+        <div style="font-size: 7.5pt; margin-top: 1mm; line-height: 1.3;">保守業者連絡</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 特殊狀況 -->
+  <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 14pt; font-weight: 900; margin-bottom: 3mm; padding-bottom: 2mm; border-bottom: 2px solid var(--ink);">
+    特殊状況対処 ‧ Special Cases
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-bottom: 5mm;">
+    <div style="background: white; border: 2px solid var(--warning-red); padding: 4mm 5mm;">
+      <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 13pt; font-weight: 900; color: var(--warning-red); margin-bottom: 2mm;">🔥 ガス漏れ</div>
+      <ul style="list-style: none; padding: 0; font-size: 9.5pt; line-height: 1.8;">
+        <li>① 直ちにガス元弁閉</li>
+        <li>② <strong>電気機器・火気使用禁止</strong></li>
+        <li>③ 換気開始 10 分以上</li>
+        <li>④ 異臭残留時は進入禁止</li>
+        <li>⑤ 上長+保守業者報告</li>
+      </ul>
+    </div>
+    <div style="background: white; border: 2px solid var(--warning-red); padding: 4mm 5mm;">
+      <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 13pt; font-weight: 900; color: var(--warning-red); margin-bottom: 2mm;">💧 大量蒸気噴出</div>
+      <ul style="list-style: none; padding: 0; font-size: 9.5pt; line-height: 1.8;">
+        <li>① <strong>噴出点から離れる</strong>（火傷防止）</li>
+        <li>② 蒸気弁閉（耐熱手袋着用）</li>
+        <li>③ 運転 OFF</li>
+        <li>④ 補水禁止（爆裂リスク）</li>
+        <li>⑤ 直ちに通報，現場撤退</li>
+      </ul>
+    </div>
+    <div style="background: white; border: 2px solid var(--warning-red); padding: 4mm 5mm;">
+      <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 13pt; font-weight: 900; color: var(--warning-red); margin-bottom: 2mm;">⚡ 異常停電</div>
+      <ul style="list-style: none; padding: 0; font-size: 9.5pt; line-height: 1.8;">
+        <li>① 停電範囲確認</li>
+        <li>② 全弁閉（蒸気・ガス・給水）</li>
+        <li>③ 復電後 SOP-01a 再起動</li>
+        <li>④ 30分間観察し正常確認</li>
+      </ul>
+    </div>
+    <div style="background: white; border: 2px solid var(--warning-red); padding: 4mm 5mm;">
+      <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 13pt; font-weight: 900; color: var(--warning-red); margin-bottom: 2mm;">🌍 地震発生</div>
+      <ul style="list-style: none; padding: 0; font-size: 9.5pt; line-height: 1.8;">
+        <li>① ボイラー自動感震停止</li>
+        <li>② 設備外観異常なし確認</li>
+        <li>③ 感震器リセットレバー上げ</li>
+        <li>④ RESET押下再起動</li>
+        <li>⑤ 15分間観察</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 緊急連絡先 -->
+  <div style="background: var(--ink); color: white; padding: 4mm 5mm;">
+    <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 14pt; font-weight: 900; letter-spacing: 0.1em; margin-bottom: 3mm; display: flex; align-items: center; gap: 3mm;">
+      <span style="background: var(--warning-red); padding: 1mm 3mm; font-family: 'JetBrains Mono', monospace; font-size: 10pt;">URGENT</span>
+      緊急連絡先 ‧ EMERGENCY CONTACTS
+    </div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+      <tr>
+        <td style="padding: 2mm 3mm; border-bottom: 1px solid rgba(255,255,255,0.3); width: 36mm; font-family: 'PMingLiU', '新細明體', serif; font-weight: 900;">現場主管</td>
+        <td style="padding: 2mm 3mm; border-bottom: 1px solid rgba(255,255,255,0.3);">_____________________________________</td>
+      </tr>
+      <tr>
+        <td style="padding: 2mm 3mm; border-bottom: 1px solid rgba(255,255,255,0.3); font-family: 'PMingLiU', '新細明體', serif; font-weight: 900;">保守工程師</td>
+        <td style="padding: 2mm 3mm; border-bottom: 1px solid rgba(255,255,255,0.3);">_____________________________________</td>
+      </tr>
+      <tr>
+        <td style="padding: 2mm 3mm; border-bottom: 1px solid rgba(255,255,255,0.3); font-family: 'PMingLiU', '新細明體', serif; font-weight: 900;">メーカー/代理店</td>
+        <td style="padding: 2mm 3mm; border-bottom: 1px solid rgba(255,255,255,0.3); font-family: 'JetBrains Mono', monospace; font-weight: 900; font-size: 11pt;">香昇國際實業 ‧ 02-2278-3636</td>
+      </tr>
+      <tr>
+        <td style="padding: 2mm 3mm; font-family: 'PMingLiU', '新細明體', serif; font-weight: 900;">緊急消防</td>
+        <td style="padding: 2mm 3mm; font-family: 'JetBrains Mono', monospace; font-weight: 900; font-size: 14pt;">119</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>SE-APG / SOP-01 ‧ E 區緊急時</span>
+    <span class="center">EMERGENCY</span>
+    <span class="right">第 9 頁 / 完</span>
+  </div>
+</div>
+
+</body>
+</html>
