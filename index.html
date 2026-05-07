@@ -571,19 +571,248 @@
     text-transform: uppercase;
   }
 
-  /* === 響應式（mobile）=== */
-  @media (max-width: 768px) {
-    html, body { overflow: auto; }
-    .main { flex-direction: column; height: auto; }
-    .sidebar { width: 100%; height: auto; max-height: 300px; }
-    .frame-wrap { padding: 12px 8px; }
-    .topbar-title { padding: 0 12px; }
-    .topbar-title-zh { font-size: 13px; }
+  /* === 響應式：平板 (721px ~ 1024px) === */
+  @media (max-width: 1024px) and (min-width: 721px) {
+    .sidebar { width: 220px; }
     .topbar-title-en { display: none; }
+    .brand-name-en { display: none; }
+    .toolbar-info { font-size: 9px; }
+    .nav-meta { display: none; }
+    .nav-link { padding: 12px 12px; }
+    .nav-title { font-size: 13px; }
+    .topbar-title-zh { font-size: 14px; }
+  }
+
+  /* === 響應式：手機 (≤720px) === */
+  @media (max-width: 720px) {
+    html, body {
+      overflow: auto;
+      height: auto;
+      min-height: 100vh;
+    }
+
+    /* 上方列：縮減 + 加漢堡按鈕 */
+    .topbar {
+      height: 52px;
+      padding-left: 0;
+    }
+
+    .menu-toggle {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: var(--warning-red);
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .menu-toggle::before {
+      content: "";
+      width: 22px;
+      height: 16px;
+      background: linear-gradient(to bottom,
+        white 0, white 2px,
+        transparent 2px, transparent 7px,
+        white 7px, white 9px,
+        transparent 9px, transparent 14px,
+        white 14px, white 16px);
+    }
+
+    .brand {
+      padding: 0 10px;
+      gap: 8px;
+      border-right: none;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .brand-text { display: block; flex: 1; min-width: 0; }
+    .brand-name { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand-name-en { display: none; }
+
+    .topbar-title { display: none; }
+
+    .lang-switcher {
+      padding: 0 8px;
+      gap: 2px;
+      flex-shrink: 0;
+    }
     .lang-label { display: none; }
-    .brand { padding: 0 12px; }
-    .brand-text { display: none; }
-    .welcome-title { font-size: 26px; }
+    .lang-btn {
+      padding: 6px 10px;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+    }
+
+    /* 主畫面：手機改成單欄 */
+    .main {
+      flex-direction: column;
+      height: auto;
+    }
+
+    /* 側邊欄變成抽屜 */
+    .sidebar {
+      position: fixed;
+      top: 52px;
+      left: -100%;
+      width: 86%;
+      max-width: 320px;
+      height: calc(100vh - 52px);
+      z-index: 1000;
+      transition: left 0.28s ease;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+      max-height: none;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    /* 抽屜遮罩 */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 52px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    /* 內容區 */
+    .content {
+      width: 100%;
+      height: calc(100vh - 52px);
+      flex: 1;
+    }
+
+    .toolbar {
+      height: 40px;
+      padding: 0 10px;
+      gap: 6px;
+    }
+    .toolbar-info {
+      font-size: 9px;
+      letter-spacing: 0.06em;
+    }
+    .toolbar-info-current {
+      max-width: 130px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .toolbar-btn {
+      padding: 5px 10px;
+      font-size: 9px;
+      letter-spacing: 0.04em;
+    }
+    .toolbar-btn .label-long { display: none; }
+
+    /* iframe wrap：拿掉 padding，用全寬度 */
+    .frame-wrap {
+      padding: 0;
+      height: calc(100% - 40px);
+      background: white;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .frame-wrap iframe {
+      max-width: none;
+      width: 100%;
+      box-shadow: none;
+      transform-origin: top left;
+      display: block;
+      border: none;
+    }
+
+    /* 歡迎畫面縮小 */
+    .welcome { padding: 30px 16px; }
+    .welcome::before { inset: 16px; }
+    .welcome::after { inset: 22px; }
+    .welcome-mark { width: 64px; height: 64px; font-size: 20px; margin-bottom: 18px; }
+    .welcome-title { font-size: 24px; letter-spacing: 0.04em; }
+    .welcome-title-en { font-size: 9px; margin-bottom: 20px; }
+    .welcome-stamp { font-size: 9px; padding: 6px 16px; letter-spacing: 0.18em; margin-bottom: 20px; }
+    .welcome-instructions { padding: 14px 18px; max-width: 90%; }
+    .welcome-instructions h3 { font-size: 12px; margin-bottom: 8px; }
+    .welcome-instructions ol { font-size: 12px; line-height: 1.7; padding-left: 18px; }
+    .welcome-meta { font-size: 9px; }
+
+    /* 導覽連結放大觸控區 */
+    .nav-link {
+      padding: 14px 14px;
+    }
+    .nav-title { font-size: 14px; }
+  }
+
+  /* 桌面預設不顯示漢堡按鈕 */
+  .menu-toggle { display: none; }
+
+  /* === 縮放控制（手機海報用）=== */
+  .zoom-controls {
+    display: none;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 50;
+    background: var(--ink);
+    border: 1px solid var(--paper);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  @media (max-width: 720px) {
+    .zoom-controls {
+      display: flex;
+    }
+  }
+
+  .zoom-btn {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: var(--paper);
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+
+  .zoom-btn:not(:last-child) {
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .zoom-btn:hover, .zoom-btn:active {
+    background: var(--warning-red);
+  }
+
+  .zoom-level {
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    min-width: 40px;
+    justify-content: center;
   }
 
   /* 滾動條樣式 */
@@ -605,6 +834,7 @@
 
 <!-- 上方標題列 -->
 <header class="topbar">
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"></button>
   <div class="brand">
     <div class="brand-mark"><span>QP</span></div>
     <div class="brand-text">
@@ -627,6 +857,8 @@
 
 <!-- 主畫面 -->
 <div class="main">
+  <!-- 抽屜遮罩（手機版用） -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <!-- 左側導覽 -->
   <aside class="sidebar">
@@ -707,10 +939,10 @@
         <span class="toolbar-info-current" id="currentDocLabel" data-i18n="welcome-pick">— 請從左側選擇 —</span>
       </div>
       <button class="toolbar-btn" id="printBtn" disabled style="opacity:0.4;cursor:not-allowed;">
-        <span data-i18n="btn-print">列印 / 存 PDF</span>
+        <span data-i18n="btn-print"><span class="label-long">列印 / </span>存 PDF</span>
       </button>
       <a class="toolbar-btn primary" id="openBtn" target="_blank" style="display:none;">
-        <span data-i18n="btn-newtab">新分頁開啟</span>
+        <span data-i18n="btn-newtab"><span class="label-long">新分頁</span>開啟</span>
       </a>
     </div>
 
@@ -733,6 +965,14 @@
     </div>
   </main>
 
+</div>
+
+<!-- 手機版縮放控制（固定右下角，僅手機顯示） -->
+<div class="zoom-controls" id="zoomControls" style="display:none;">
+  <button class="zoom-btn" id="zoomOut" aria-label="縮小">−</button>
+  <div class="zoom-level" id="zoomLevel">100%</div>
+  <button class="zoom-btn" id="zoomIn" aria-label="放大">+</button>
+  <button class="zoom-btn" id="zoomFit" aria-label="自適應" title="自適應寬度">⤢</button>
 </div>
 
 <script>
@@ -901,7 +1141,181 @@
     link.addEventListener('click', (e) => {
       e.preventDefault();
       loadDoc(link.dataset.doc);
+      // 手機版：點選文件後自動關閉抽屜
+      if (window.innerWidth <= 720) {
+        closeSidebar();
+      }
     });
+  });
+
+  // === 手機版漢堡選單 ===
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const menuToggle = document.getElementById('menuToggle');
+
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function toggleSidebar() {
+    if (sidebar.classList.contains('open')) closeSidebar();
+    else openSidebar();
+  }
+
+  if (menuToggle) menuToggle.addEventListener('click', toggleSidebar);
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+
+  // === 手機版縮放控制 ===
+  const zoomControls = document.getElementById('zoomControls');
+  const zoomLevel = document.getElementById('zoomLevel');
+  let currentZoom = 1;
+
+  function isCompact() {
+    // 任何 1024 以下都需要縮放 fit
+    return window.innerWidth <= 1024;
+  }
+  function isMobile() {
+    return window.innerWidth <= 720;
+  }
+
+  function applyZoom() {
+    const iframe = document.querySelector('#frameWrap iframe');
+    const wrap = document.getElementById('frameWrap');
+    if (!iframe || !wrap) return;
+    
+    if (!isCompact() || currentZoom === 1) {
+      // 桌面或 100% 直接還原
+      iframe.style.transform = '';
+      iframe.style.width = '';
+      iframe.style.height = '';
+      iframe.style.transformOrigin = '';
+      iframe.style.marginRight = '';
+      iframe.style.marginBottom = '';
+      if (zoomLevel) zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
+      return;
+    }
+    
+    // 取得 iframe 內容實際尺寸
+    let contentWidth = 1123;
+    let contentHeight = 1600;
+    try {
+      const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+      if (innerDoc) {
+        const poster = innerDoc.querySelector('.poster, .page, .card');
+        if (poster) {
+          contentWidth = poster.offsetWidth || contentWidth;
+          contentHeight = poster.offsetHeight || contentHeight;
+        }
+      }
+    } catch (e) {}
+    
+    // iframe 設原始大小
+    iframe.style.transformOrigin = 'top left';
+    iframe.style.width = `${contentWidth}px`;
+    iframe.style.height = `${contentHeight + 40}px`;
+    iframe.style.transform = `scale(${currentZoom})`;
+    // 用負 margin 抵銷 transform 後仍佔原始空間的部分
+    const scaledW = contentWidth * currentZoom;
+    const scaledH = (contentHeight + 40) * currentZoom;
+    iframe.style.marginRight = `${scaledW - contentWidth}px`;
+    iframe.style.marginBottom = `${scaledH - (contentHeight + 40)}px`;
+    
+    if (zoomLevel) zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
+  }
+
+  function fitToWidth() {
+    const iframe = document.querySelector('#frameWrap iframe');
+    const wrap = document.getElementById('frameWrap');
+    if (!iframe || !wrap) return;
+    
+    // 嘗試取得 iframe 內 .poster 或 body 的實際寬度
+    let contentWidth = 1123; // A3 預設約 1123px (297mm)
+    try {
+      const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+      if (innerDoc) {
+        const poster = innerDoc.querySelector('.poster, .page, .card');
+        if (poster) {
+          contentWidth = poster.offsetWidth || poster.scrollWidth || contentWidth;
+        } else if (innerDoc.body) {
+          contentWidth = innerDoc.body.scrollWidth || contentWidth;
+        }
+      }
+    } catch (e) {
+      // 跨來源限制
+    }
+    
+    const wrapWidth = wrap.clientWidth;
+    currentZoom = Math.min(1, wrapWidth / contentWidth);
+    // 限制在合理範圍
+    currentZoom = Math.max(0.25, Math.min(2, currentZoom));
+    applyZoom();
+  }
+
+  document.getElementById('zoomIn')?.addEventListener('click', () => {
+    currentZoom = Math.min(currentZoom + 0.1, 2);
+    applyZoom();
+  });
+  document.getElementById('zoomOut')?.addEventListener('click', () => {
+    currentZoom = Math.max(currentZoom - 0.1, 0.25);
+    applyZoom();
+  });
+  document.getElementById('zoomFit')?.addEventListener('click', fitToWidth);
+
+  // 載入文件後在手機上自動套用 fit-to-width
+  function setupZoomForDoc() {
+    const iframe = document.querySelector('#frameWrap iframe');
+    if (!isCompact()) {
+      // 桌面 (>1024)：清除縮放
+      if (zoomControls) zoomControls.style.display = 'none';
+      if (iframe) {
+        iframe.style.transform = '';
+        iframe.style.width = '';
+        iframe.style.height = '';
+        iframe.style.marginRight = '';
+        iframe.style.marginBottom = '';
+      }
+      return;
+    }
+    // 手機顯示縮放控制；平板自動 fit 但隱藏控制
+    if (zoomControls) {
+      zoomControls.style.display = isMobile() ? 'flex' : 'none';
+    }
+    if (iframe) {
+      const onLoad = () => {
+        setTimeout(fitToWidth, 300);
+      };
+      try {
+        if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+          onLoad();
+        } else {
+          iframe.addEventListener('load', onLoad, { once: true });
+        }
+      } catch (e) {
+        iframe.addEventListener('load', onLoad, { once: true });
+      }
+    }
+  }
+
+  // 改寫 loadDoc：載入後設定縮放
+  const _origLoadDoc = loadDoc;
+  loadDoc = function(docId) {
+    _origLoadDoc(docId);
+    setTimeout(setupZoomForDoc, 100);
+  };
+
+  // 視窗 resize 時重設
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (currentDoc) setupZoomForDoc();
+    }, 200);
   });
 
   // 初始化
