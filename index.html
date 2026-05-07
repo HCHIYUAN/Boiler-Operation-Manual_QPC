@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SE-APG 鍋爐標準操作程序 ‧ SOP Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --industrial-blue: #0F2A47;
@@ -29,9 +32,16 @@
   html, body {
     height: 100%;
     overflow: hidden;
-    font-family: 'PMingLiU', '新細明體', 'Noto Serif TC', 'Yu Mincho', 'YuMincho', serif;
+    font-family: 'Noto Sans TC', 'Noto Sans JP', 'PingFang TC', 'Microsoft JhengHei', 'Hiragino Sans', sans-serif;
     color: var(--ink);
     background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* 日文模式時優先 Noto Sans JP */
+  html[lang="ja"] body {
+    font-family: 'Noto Sans JP', 'Noto Sans TC', 'Hiragino Sans', 'Yu Gothic', sans-serif;
   }
 
   /* === 上方標題列 === */
@@ -832,6 +842,8 @@
     });
 
     const url = `${currentLang}/${docId}.html`;
+    // 給新視窗用的 URL（不含 .html，配合 vercel cleanUrls 避免 redirect）
+    const cleanUrl = `${currentLang}/${docId}`;
     const wrap = document.getElementById('frameWrap');
     wrap.innerHTML = `<iframe src="${url}" title="${docId}"></iframe>`;
 
@@ -848,14 +860,34 @@
     printBtn.style.opacity = '';
     printBtn.style.cursor = '';
     printBtn.onclick = () => {
-      const iframe = document.querySelector('#frameWrap iframe');
-      if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
+      // 直接開新視窗載入該頁，並在 load 完成後觸發列印（最穩定的方式）
+      // 用 cleanUrl 避免 Vercel cleanUrls 觸發 redirect
+      const printWin = window.open(cleanUrl, '_blank');
+      if (!printWin) {
+        // 彈出視窗被封鎖時的 fallback
+        alert('瀏覽器封鎖了彈出視窗。\n\n請按以下方式之一：\n1. 點「新分頁開啟」按鈕後在新分頁按 Ctrl+P / Cmd+P\n2. 在網址列允許彈出視窗，然後再試一次');
+        return;
+      }
+      // 等載入完成後印
+      const onReady = () => {
+        try {
+          printWin.focus();
+          printWin.print();
+        } catch (e) {
+          console.warn('列印失敗：', e);
+        }
+      };
+      // 兩種偵測方式（不同瀏覽器表現不一）
+      if (printWin.document.readyState === 'complete') {
+        setTimeout(onReady, 500);
+      } else {
+        printWin.addEventListener('load', () => setTimeout(onReady, 500));
+        // 安全網：3 秒後若還沒觸發，強制觸發
+        setTimeout(onReady, 3000);
       }
     };
     openBtn.style.display = 'inline-flex';
-    openBtn.href = url;
+    openBtn.href = cleanUrl;
 
     updateHash();
   }

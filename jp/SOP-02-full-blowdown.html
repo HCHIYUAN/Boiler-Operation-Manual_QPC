@@ -2,6 +2,9 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <title>SOP-02 全ブロー作業｜SE-APG 系列ボイラー</title>
 <style>
 :root {
@@ -30,7 +33,7 @@
   -webkit-print-color-adjust: exact !important;
   print-color-adjust: exact !important;
 }
-body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068; padding: 30px 20px; color: var(--ink); }
+body { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', sans-serif; background: #5d6068; padding: 30px 20px; color: var(--ink); }
 
 .poster {
   width: 297mm;
@@ -52,11 +55,11 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
 .doc-no-row { display: flex; gap: 3mm; align-items: center; margin-bottom: 3mm; }
 .doc-no { font-family: 'JetBrains Mono', monospace; font-size: 10pt; font-weight: 700; letter-spacing: 0.15em; color: white; background: var(--warning-red); padding: 1.5mm 4mm; }
 .doc-tag { font-family: 'JetBrains Mono', monospace; font-size: 9pt; font-weight: 700; letter-spacing: 0.2em; color: var(--industrial-blue); border: 1.5px solid var(--industrial-blue); padding: 1mm 3mm; }
-.title-zh { font-family: 'PMingLiU', '新細明體', serif; font-size: 30pt; font-weight: 900; line-height: 1.05; color: var(--ink); }
+.title-zh { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 30pt; font-weight: 900; line-height: 1.05; color: var(--ink); }
 .title-en { font-family: 'JetBrains Mono', monospace; font-size: 9pt; letter-spacing: 0.25em; color: var(--ink-fade); margin-top: 2mm; text-transform: uppercase; }
 .subtitle { font-size: 11pt; margin-top: 2.5mm; color: var(--ink-soft); font-weight: 500; }
 .header-right { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 8.5pt; line-height: 1.7; color: var(--ink-soft); }
-.company-name { font-family: 'PMingLiU', '新細明體', serif; font-size: 12pt; font-weight: 900; color: var(--industrial-blue); margin-bottom: 1.5mm; letter-spacing: 0.05em; }
+.company-name { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 12pt; font-weight: 900; color: var(--industrial-blue); margin-bottom: 1.5mm; letter-spacing: 0.05em; }
 .company-en { font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; letter-spacing: 0.15em; color: var(--ink-fade); margin-bottom: 2.5mm; }
 .meta-line { display: flex; justify-content: flex-end; gap: 2mm; }
 .meta-line span:first-child { color: var(--ink-fade); }
@@ -88,7 +91,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
   margin-bottom: 1mm;
 }
 .trigger-title {
-  font-family: 'PMingLiU', '新細明體', serif;
+  font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif;
   font-size: 16pt;
   font-weight: 900;
   color: var(--ink);
@@ -107,7 +110,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
   justify-content: center;
 }
 .trigger-time .label { font-family: 'JetBrains Mono', monospace; font-size: 8pt; letter-spacing: 0.2em; opacity: 0.8; }
-.trigger-time .time { font-family: 'PMingLiU', '新細明體', serif; font-size: 18pt; font-weight: 900; line-height: 1.1; margin-top: 1mm; }
+.trigger-time .time { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 18pt; font-weight: 900; line-height: 1.1; margin-top: 1mm; }
 .trigger-time .desc { font-size: 8.5pt; margin-top: 1mm; opacity: 0.85; line-height: 1.4; }
 
 /* Section */
@@ -121,7 +124,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
 .section-num.yellow { background: var(--caution-yellow); color: var(--ink); }
 .section-num.red { background: var(--warning-red); }
 .section-titles { flex: 1; }
-.section-title-zh { font-family: 'PMingLiU', '新細明體', serif; font-size: 17pt; font-weight: 900; line-height: 1.1; }
+.section-title-zh { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 17pt; font-weight: 900; line-height: 1.1; }
 .section-title-en { font-family: 'JetBrains Mono', monospace; font-size: 9pt; letter-spacing: 0.2em; color: var(--ink-fade); margin-top: 0.5mm; text-transform: uppercase; }
 .section-meta { text-align: right; font-size: 9pt; color: var(--ink-fade); font-family: 'JetBrains Mono', monospace; line-height: 1.5; }
 .section-meta .freq { display: inline-block; padding: 1mm 3mm; background: var(--paper-deep); border: 1px solid var(--ink); font-weight: 700; color: var(--ink); margin-bottom: 1mm; }
@@ -143,7 +146,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
 .step-card.caution .step-num { background: var(--caution-yellow); color: var(--ink); }
 .step-card.go .step-num { background: var(--safe-green); }
 .step-tag { font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.12em; color: var(--ink-fade); text-transform: uppercase; }
-.step-title { font-family: 'PMingLiU', '新細明體', serif; font-size: 11.5pt; font-weight: 900; color: var(--ink); line-height: 1.25; margin-bottom: 1mm; }
+.step-title { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 11.5pt; font-weight: 900; color: var(--ink); line-height: 1.25; margin-bottom: 1mm; }
 .step-desc { font-size: 9pt; line-height: 1.5; color: var(--ink-soft); }
 .step-desc strong { background: var(--caution-yellow); padding: 0 1.5px; font-weight: 700; }
 .step-desc em { font-style: normal; color: var(--warning-red); font-weight: 700; }
@@ -161,7 +164,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
   gap: 3mm;
 }
 .danger-banner svg { width: 7mm; height: 7mm; flex-shrink: 0; }
-.danger-banner-title { font-family: 'PMingLiU', '新細明體', serif; font-size: 13pt; font-weight: 900; letter-spacing: 0.1em; }
+.danger-banner-title { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 13pt; font-weight: 900; letter-spacing: 0.1em; }
 .danger-banner-text { flex: 1; font-size: 10pt; }
 .danger-banner-text strong { background: white; color: var(--warning-red); padding: 0 3px; font-weight: 900; }
 
@@ -180,13 +183,13 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
   width: 14mm; height: 14mm;
   background: var(--industrial-blue);
   color: white;
-  font-family: 'PMingLiU', '新細明體', serif;
+  font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif;
   font-size: 16pt; font-weight: 900;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 .multi-content {}
-.multi-title { font-family: 'PMingLiU', '新細明體', serif; font-size: 12pt; font-weight: 900; color: var(--industrial-blue); margin-bottom: 2mm; letter-spacing: 0.05em; }
+.multi-title { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 12pt; font-weight: 900; color: var(--industrial-blue); margin-bottom: 2mm; letter-spacing: 0.05em; }
 .multi-desc { font-size: 9pt; line-height: 1.6; color: var(--ink); }
 .multi-desc strong { background: var(--caution-yellow); padding: 0 2px; font-weight: 700; }
 .multi-desc em { font-style: normal; color: var(--warning-red); font-weight: 700; }
@@ -199,7 +202,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
   margin-top: 5mm;
 }
 .flow-summary-title {
-  font-family: 'PMingLiU', '新細明體', serif;
+  font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif;
   font-size: 13pt; font-weight: 900;
   margin-bottom: 3mm;
   padding-bottom: 2mm;
@@ -233,7 +236,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
 .flow-node.danger { background: var(--warning-red-soft); border-color: var(--warning-red); }
 .flow-node.end { background: var(--safe-green); color: white; }
 .flow-node-num { font-family: 'JetBrains Mono', monospace; font-size: 7pt; font-weight: 700; opacity: 0.7; margin-bottom: 1mm; letter-spacing: 0.1em; }
-.flow-node-label { font-family: 'PMingLiU', '新細明體', serif; font-weight: 900; font-size: 9pt; }
+.flow-node-label { font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-weight: 900; font-size: 9pt; }
 .flow-node-time { font-size: 7pt; margin-top: 1mm; opacity: 0.85; font-family: 'JetBrains Mono', monospace; }
 .flow-arrow-h {
   display: flex; align-items: center; justify-content: center;
@@ -242,7 +245,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
 
 /* Footer */
 .footer { margin-top: 5mm; padding-top: 3mm; border-top: 1px solid var(--ink); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 8pt; color: var(--ink-fade); }
-.footer .center { text-align: center; font-family: 'PMingLiU', '新細明體', serif; font-size: 9pt; color: var(--ink); letter-spacing: 0.1em; }
+.footer .center { text-align: center; font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 9pt; color: var(--ink); letter-spacing: 0.1em; }
 .footer .right { text-align: right; }
 
 /* === @page 尺寸 === */
@@ -252,6 +255,17 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
 }
 
 @media print {
+  /* 列印時強制使用 PMingLiU 新細明體 */
+  *, *::before, *::after,
+  body, h1, h2, h3, h4, h5, h6, p, div, span, td, th, li {
+    font-family: 'PMingLiU', '新細明體', 'Noto Sans JP', serif !important;
+  }
+  code, pre, kbd, samp,
+  [style*="JetBrains Mono"],
+  [style*="monospace"] {
+    font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+  }
+
   html, body {
     background: white !important;
     padding: 0 !important;
@@ -543,11 +557,11 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <!-- 固定標示 -->
             <g transform="translate(50, 8)">
               <rect x="0" y="0" width="36" height="12" fill="#00875A"/>
-              <text x="18" y="8.5" font-family="PMingLiU, sans-serif" font-size="8" font-weight="900" fill="white" text-anchor="middle">固定済</text>
+              <text x="18" y="8.5" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="8" font-weight="900" fill="white" text-anchor="middle">固定済</text>
             </g>
             <!-- 箭頭指向固定處 -->
             <path d="M 64 16 L 68 56" fill="none" stroke="#00875A" stroke-width="0.8" stroke-dasharray="2,1"/>
-            <text x="2" y="58" font-family="PMingLiU, sans-serif" font-size="7" fill="#1a2332">ブロー管末端</text>
+            <text x="2" y="58" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" fill="#1a2332">ブロー管末端</text>
           </svg>
         </div>
         <div class="step-content">
@@ -583,7 +597,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
               <circle cx="0" cy="0" r="2.5" fill="#1a2332"/>
             </g>
             <text x="50" y="84" font-family="JetBrains Mono, monospace" font-size="7" font-weight="900" fill="#F6BE00" text-anchor="middle">當前 0.10 MPa</text>
-            <text x="50" y="92" font-family="PMingLiU, sans-serif" font-size="6" font-weight="700" fill="#1a2332" text-anchor="middle">在ブロー黃區內 ✓</text>
+            <text x="50" y="92" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="6" font-weight="700" fill="#1a2332" text-anchor="middle">在ブロー黃區內 ✓</text>
           </svg>
         </div>
         <div class="step-content">
@@ -603,8 +617,8 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <g transform="translate(10, 20)">
               <circle cx="20" cy="20" r="20" fill="white" stroke="#C8102E" stroke-width="1.8"/>
               <text x="20" y="24" font-family="JetBrains Mono, monospace" font-size="9" font-weight="900" fill="#C8102E" text-anchor="middle">&lt;0.05</text>
-              <text x="20" y="56" font-family="PMingLiU, sans-serif" font-size="7" fill="#1a2332" text-anchor="middle">圧力過低</text>
-              <text x="20" y="64" font-family="PMingLiU, sans-serif" font-size="6" fill="#666" text-anchor="middle">無法ブロー</text>
+              <text x="20" y="56" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" fill="#1a2332" text-anchor="middle">圧力過低</text>
+              <text x="20" y="64" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="6" fill="#666" text-anchor="middle">無法ブロー</text>
             </g>
             <!-- 箭頭 -->
             <path d="M 56 40 L 70 40" stroke="#1a2332" stroke-width="1.5"/>
@@ -612,9 +626,9 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <!-- 2. 起動運転 -->
             <g transform="translate(78, 20)">
               <rect x="0" y="0" width="40" height="40" fill="#00875A"/>
-              <text x="20" y="18" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">運転 ON</text>
+              <text x="20" y="18" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">運転 ON</text>
               <text x="20" y="29" font-family="JetBrains Mono, monospace" font-size="7" font-weight="900" fill="white" text-anchor="middle">→ 0.1 MPa</text>
-              <text x="20" y="56" font-family="PMingLiU, sans-serif" font-size="7" fill="#1a2332" text-anchor="middle">短暫升壓</text>
+              <text x="20" y="56" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" fill="#1a2332" text-anchor="middle">短暫升壓</text>
             </g>
             <!-- 箭頭 -->
             <path d="M 124 40 L 138 40" stroke="#1a2332" stroke-width="1.5"/>
@@ -622,9 +636,9 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <!-- 3. 停止後ブロー -->
             <g transform="translate(146, 20)">
               <rect x="0" y="0" width="40" height="40" fill="#F6BE00"/>
-              <text x="20" y="18" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="#1a2332" text-anchor="middle">運転 OFF</text>
-              <text x="20" y="29" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="#1a2332" text-anchor="middle">開始ブロー</text>
-              <text x="20" y="56" font-family="PMingLiU, sans-serif" font-size="7" fill="#1a2332" text-anchor="middle">執行 A4 步驟</text>
+              <text x="20" y="18" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" font-weight="900" fill="#1a2332" text-anchor="middle">運転 OFF</text>
+              <text x="20" y="29" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" font-weight="900" fill="#1a2332" text-anchor="middle">開始ブロー</text>
+              <text x="20" y="56" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" fill="#1a2332" text-anchor="middle">執行 A4 步驟</text>
             </g>
           </svg>
         </div>
@@ -652,8 +666,8 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <!-- 慢速箭頭 -->
             <text x="77.0" y="22.0" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#C8102E" text-anchor="middle">↺</text>
             <!-- 標籤 -->
-            <text x="50" y="86" font-family="PMingLiU, sans-serif" font-size="7.5" font-weight="700" fill="#1a2332" text-anchor="middle">ボイラーブロー弁 ‧ Drain Valve</text>
-            <text x="50" y="94" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="900" fill="#C8102E" text-anchor="middle">注意ブロー管末端安全</text>
+            <text x="50" y="86" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7.5" font-weight="700" fill="#1a2332" text-anchor="middle">ボイラーブロー弁 ‧ Drain Valve</text>
+            <text x="50" y="94" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="6.5" font-weight="900" fill="#C8102E" text-anchor="middle">注意ブロー管末端安全</text>
           </svg>
         </div>
         <div class="step-content">
@@ -707,7 +721,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <line x1="50" y1="48" x2="50" y2="32" stroke="#1a2332" stroke-width="3" stroke-linecap="round"/>
             <circle cx="50" cy="48" r="3" fill="#1a2332"/>
             <!-- 標示 -->
-            <text x="50" y="92" font-family="PMingLiU, serif" font-size="13" font-weight="900" fill="#1a2332" text-anchor="middle">10 分</text>
+            <text x="50" y="92" font-family="Noto Sans JP, Noto Sans JP, PMingLiU, sans-serif" font-size="13" font-weight="900" fill="#1a2332" text-anchor="middle">10 分</text>
           </svg>
         </div>
         <div class="step-content">
@@ -738,7 +752,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
               <path d="M 51 18 Q 48 14 51 10"/>
               <path d="M 51 14 Q 54 10 51 6"/>
             </g>
-            <text x="50" y="98" font-family="PMingLiU, sans-serif" font-size="7" font-weight="700" fill="#1a2332" text-anchor="middle">給気弁</text>
+            <text x="50" y="98" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" font-weight="700" fill="#1a2332" text-anchor="middle">給気弁</text>
             <text x="50" y="104" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#666" text-anchor="middle">VENT VALVE</text>
           </svg>
         </div>
@@ -782,7 +796,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <!-- ボイラー表示ランプ：熄 -->
             <circle cx="50" cy="48" r="11" fill="none" stroke="#444" stroke-width="0.8"/>
             <circle cx="50" cy="48" r="8" fill="#666" opacity="0.4"/>
-            <text x="50" y="51" font-family="PMingLiU, sans-serif" font-size="4" font-weight="900" fill="#aaa" text-anchor="middle">熄</text>
+            <text x="50" y="51" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="4" font-weight="900" fill="#aaa" text-anchor="middle">熄</text>
             <!-- 全ブロースイッチ（黃色、置中、放大）-->
             <rect x="32" y="68" width="36" height="20" fill="#F6BE00" stroke="white" stroke-width="0.8" rx="2"/>
             <text x="50" y="78" font-family="JetBrains Mono, monospace" font-size="6" font-weight="900" fill="#1a2332" text-anchor="middle">OVERALL</text>
@@ -806,11 +820,11 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <rect x="44" y="8" width="12" height="22" fill="url(#bodyMetal)" stroke="#1a2332" stroke-width="1.2"/>
             <rect x="48" y="0" width="4" height="14" fill="#C8102E" stroke="#1a2332" stroke-width="0.5"/>
             <circle cx="50" cy="13" r="2" fill="#1a2332"/>
-            <text x="50" y="40" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">給気弁</text>
+            <text x="50" y="40" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">給気弁</text>
             <!-- 「關」紅圓 -->
             <g transform="translate(82, 14)">
               <circle cx="6" cy="6" r="6" fill="#C8102E"/>
-              <text x="6" y="9" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">關</text>
+              <text x="6" y="9" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">關</text>
             </g>
 
             <!-- 分隔線 -->
@@ -821,10 +835,10 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
             <rect x="44" y="59" width="12" height="22" fill="url(#bodyMetal)" stroke="#1a2332" stroke-width="1.2"/>
             <rect x="48" y="55" width="4" height="14" fill="#C8102E" stroke="#1a2332" stroke-width="0.5"/>
             <circle cx="50" cy="64" r="2" fill="#1a2332"/>
-            <text x="50" y="93" font-family="PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">ボイラーブロー弁</text>
+            <text x="50" y="93" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="6.5" font-weight="700" fill="#1a2332" text-anchor="middle">ボイラーブロー弁</text>
             <g transform="translate(82, 65)">
               <circle cx="6" cy="6" r="6" fill="#C8102E"/>
-              <text x="6" y="9" font-family="PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">關</text>
+              <text x="6" y="9" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="7" font-weight="900" fill="white" text-anchor="middle">關</text>
             </g>
           </svg>
         </div>
@@ -855,14 +869,14 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
               <line x1="4" y1="4" x2="16" y2="16" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
               <line x1="16" y1="4" x2="4" y2="16" stroke="#C8102E" stroke-width="3" stroke-linecap="round"/>
             </g>
-            <text x="42" y="82" font-family="PMingLiU, sans-serif" font-size="5.5" fill="#C8102E" text-anchor="middle">× 停止（全ブロー期間）</text>
+            <text x="42" y="82" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="5.5" fill="#C8102E" text-anchor="middle">× 停止（全ブロー期間）</text>
             
             <!-- 中間：箭頭 + 「恢復」標籤 -->
             <g transform="translate(78, 50)">
               <line x1="0" y1="10" x2="40" y2="10" stroke="#F6BE00" stroke-width="2.5" stroke-linecap="round"/>
               <line x1="40" y1="10" x2="32" y2="5" stroke="#F6BE00" stroke-width="2.5" stroke-linecap="round"/>
               <line x1="40" y1="10" x2="32" y2="15" stroke="#F6BE00" stroke-width="2.5" stroke-linecap="round"/>
-              <text x="20" y="6" font-family="PMingLiU, sans-serif" font-size="6" font-weight="900" fill="#F6BE00" text-anchor="middle">復帰</text>
+              <text x="20" y="6" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="6" font-weight="900" fill="#F6BE00" text-anchor="middle">復帰</text>
             </g>
             
             <!-- 右半：復帰後（○）-->
@@ -871,7 +885,7 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
               <rect x="0" y="0" width="20" height="20" fill="none" stroke="#00ff88" stroke-width="1.5"/>
               <circle cx="10" cy="10" r="6" fill="none" stroke="#00ff88" stroke-width="2.5"/>
             </g>
-            <text x="148" y="82" font-family="PMingLiU, sans-serif" font-size="5.5" fill="#00ff88" text-anchor="middle">○ 有効（複数台運転）</text>
+            <text x="148" y="82" font-family="Noto Sans JP, PMingLiU, sans-serif" font-size="5.5" fill="#00ff88" text-anchor="middle">○ 有効（複数台運転）</text>
           </svg>
         </div>
         <div class="step-content">
@@ -947,9 +961,9 @@ body { font-family: 'PMingLiU', '新細明體', sans-serif; background: #5d6068;
 
   <!-- 配套提示 -->
   <div style="margin-top: 4mm; background: var(--industrial-blue); color: white; padding: 4mm 5mm; display: grid; grid-template-columns: auto 1fr auto; gap: 4mm; align-items: center;">
-    <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 16pt; font-weight: 900; letter-spacing: 0.1em;">⮕</div>
+    <div style="font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 16pt; font-weight: 900; letter-spacing: 0.1em;">⮕</div>
     <div>
-      <div style="font-family: 'PMingLiU', '新細明體', serif; font-size: 11pt; font-weight: 900; letter-spacing: 0.05em;">本作業完了後，に従い SOP-01a フローで当日運転開始</div>
+      <div style="font-family: 'Noto Sans JP', 'PMingLiU', '新細明體', serif; font-size: 11pt; font-weight: 900; letter-spacing: 0.05em;">本作業完了後，に従い SOP-01a フローで当日運転開始</div>
       <div style="font-size: 8.5pt; margin-top: 1mm; opacity: 0.85;">推奨此 SOP と SOP-01a/01b ボイラー操作パネル横に並べて掲示。</div>
     </div>
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 9pt; font-weight: 700; padding: 2mm 4mm; border: 1.5px solid white; letter-spacing: 0.15em;">SOP-02</div>
